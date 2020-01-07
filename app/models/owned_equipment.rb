@@ -1,0 +1,2 @@
+class OwnedEquipment < ApplicationRecord
+end

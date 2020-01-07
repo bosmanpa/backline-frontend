@@ -1,0 +1,2 @@
+class OwnedEquipmentsController < ApplicationController
+end
