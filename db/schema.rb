@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_07_205459) do
+ActiveRecord::Schema.define(version: 2020_01_07_223857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "equipment", force: :cascade do |t|
-    t.string "type"
-    t.string "model"
+  create_table "equipment_models", force: :cascade do |t|
+    t.string "name"
     t.string "description"
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
@@ -27,6 +26,12 @@ ActiveRecord::Schema.define(version: 2020_01_07_205459) do
   create_table "equipment_rentals", force: :cascade do |t|
     t.integer "event_id"
     t.integer "equipment_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "equipment_types", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -45,8 +50,8 @@ ActiveRecord::Schema.define(version: 2020_01_07_205459) do
 
   create_table "owned_equipments", force: :cascade do |t|
     t.integer "owner_id"
-    t.string "type"
-    t.string "model"
+    t.integer "type_id"
+    t.integer "model_id"
     t.string "description"
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
