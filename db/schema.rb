@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2020_01_07_223857) do
   enable_extension "plpgsql"
 
   create_table "equipment_models", force: :cascade do |t|
+    t.integer "equipment_type_id"
     t.string "name"
     t.string "description"
     t.string "image"
