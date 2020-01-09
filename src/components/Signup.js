@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { loginSuccess } from '../actions/index'
+import { connect } from 'react-redux';
 
 class Signup extends Component{
 state ={
@@ -24,7 +26,11 @@ handleInputChange = (e) => {
 
     fetch('http://localhost:3001/users', reqObj)
     .then(resp => resp.json())
-    .then(data => console.log(data))
+    .then(data => {
+      this.props.loginSuccess(data.user)
+      localStorage.setItem('token', data.token)
+      this.props.history.push('/dashboard')
+    })
   }
 
 
@@ -42,4 +48,12 @@ render(){
   }
 }
 
-export default Signup
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginSuccess: (user) => {
+      dispatch(loginSuccess(user))
+    }
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Signup)

@@ -5,7 +5,7 @@ import WithAuth from './WithAuth.js'
 
 class Dashboard extends Component {
 
-  handleRenterClick = () => {
+  handleRenterClick = () => { 
     this.props.history.push('/promotercreate')
   }
 

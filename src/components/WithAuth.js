@@ -25,7 +25,6 @@ export default function WithAuth(WrappedComponent) {
               this.props.history.push('/login')
             } else {
               this.props.loginSuccess(data)
-
             }
           })
       }

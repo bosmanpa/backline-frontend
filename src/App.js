@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './components/Login'
 import Dashboard from './components/Dashboard'
 import Signup from './components/Signup'
+import OwnerCreate from './components/OwnerCreate'
+import PromoterCreate from './components/PromoterCreate'
 import './App.css';
 
 function App() {
@@ -13,6 +15,8 @@ function App() {
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/dashboard' component={Dashboard} />
+            <Route exact path='/promotercreate' component={PromoterCreate} />
+            <Route exact path='/ownercreate' component={OwnerCreate} />
           </Switch>
       </div>
     </BrowserRouter>
