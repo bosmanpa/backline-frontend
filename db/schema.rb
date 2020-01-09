@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2020_01_07_223857) do
     t.integer "type_id"
     t.integer "model_id"
     t.string "description"
-    t.string "image"
+    t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
