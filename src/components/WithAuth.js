@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component }from 'react';
 
 export default function WithAuth(WrappedComponent) {
-  return class extends React.Component {
+  return class extends Component {
 
     componentDidMount(){
       const token = localStorage.getItem('token')
@@ -32,7 +32,7 @@ export default function WithAuth(WrappedComponent) {
     }
 
     render() {
-      return <WrappedComponent />;
+      return <WrappedComponent  {...this.props}/>;
     }
   };
 }

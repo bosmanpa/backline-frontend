@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../App.css';
 import { loginSuccess } from '../actions/index'
 import { connect } from 'react-redux'
 
-class Login extends React.Component {
+class Login extends Component {
     state = {
       username: 'user',
       password: 'password',
