@@ -4,7 +4,7 @@ class AuthController < ApplicationController
       if user && user.authenticate(params['password'])
         token =  JWT.encode({user_id: user.id}, 'secretkey', 'HS256')
   
-        render json: { id: user.id, username: user.username, token: token }
+        render json: { id: user.id, renter_created: user.renter_created, renter_name: user.renter_name, renter_location: user.renter_location, renter_info: user.renter_info, renter_image: user.renter_image, owner_created: user.owner_created, owner_name: user.owner_name, owner_location: user.owner_location, owner_info: user.owner_info, owner_image: user.owner_image, token: token }
       else
         render json: { error: 'invalid credentials' }, status: 401
       end
@@ -17,7 +17,7 @@ class AuthController < ApplicationController
       user = User.find(user_id)
   
       if(user)
-        render json: { id: user.id, username: user.username, token: token }
+        render json: { id: user.id, renter_created: user.renter_created, renter_name: user.renter_name, renter_location: user.renter_location, renter_info: user.renter_info, renter_image: user.renter_image, owner_created: user.owner_created, owner_name: user.owner_name, owner_location: user.owner_location, owner_info: user.owner_info, owner_image: user.owner_image, token: token }
       else
         render json: { error: 'invalid token' }, status: 401
       end
