@@ -18,3 +18,17 @@ export const loginSuccess= (user) => {
     user
   }
 }
+
+export const updateOwnerProfile = (user) =>{
+  return {
+    type: "UPDATE_OWNER_PROFILE",
+    user
+  }
+}
+
+export const updateRenterProfile = (user) =>{
+  return {
+    type: "UPDATE_RENTER_PROFILE",
+    user
+  }
+}

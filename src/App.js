@@ -5,6 +5,8 @@ import Dashboard from './components/Dashboard'
 import Signup from './components/Signup'
 import OwnerCreate from './components/OwnerCreate'
 import PromoterCreate from './components/PromoterCreate'
+import OwnerUpdate from './components/OwnerUpdate'
+import PromoterUpdate from './components/PromoterUpdate'
 import './App.css';
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
             <Route exact path='/dashboard' component={Dashboard} />
             <Route exact path='/promotercreate' component={PromoterCreate} />
             <Route exact path='/ownercreate' component={OwnerCreate} />
+            <Route exact path='/ownerupdate' component={OwnerUpdate} />
+            <Route exact path='/promoterupdate' component={PromoterUpdate} />
           </Switch>
       </div>
     </BrowserRouter>

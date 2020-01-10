@@ -5,12 +5,8 @@ import WithAuth from './WithAuth.js'
 
 class Dashboard extends Component {
 
-  handleRenterClick = () => { 
-    this.props.history.push('/promotercreate')
-  }
-
-  handleOwnerClick = () => {
-    this.props.history.push('/ownercreate')
+  handleButtonClick = (event) => { 
+    this.props.history.push(event.target.id)
   }
 
   render(){
@@ -18,30 +14,35 @@ class Dashboard extends Component {
     return (
       <div>
         <h4>Promoter Show Page</h4>
+        <button id='/promoterupdate' onClick={this.handleButtonClick}>Update Promoter Profile</button>
         <h4>Owner Show Page</h4>
+        <button id='/ownerupdate' onClick={this.handleButtonClick}>Update Owner Profile</button>
+
       </div>
     )}
     else if (this.props.currentUser.renter_created && !this.props.currentUser.owner_created) {
       return(
         <div>
           <h4>Promoter Show Page</h4>
-          <button onClick={this.handleOwnerClick}>Create Owner Profile</button>
+          <button id='/promoterupdate' onClick={this.handleButtonClick}>Update Promoter Profile</button>
+          <button id='/ownercreate' onClick={this.handleButtonClick}>Create Owner Profile</button>
         </div>
       )
     }
     else if (!this.props.currentUser.renter_created && this.props.currentUser.owner_created){
       return (
         <div>
-          <button onClick={this.handleRenterClick}>Create Promoter Profile</button>
+          <button id='/promotercreate' onClick={this.handleButtonClick}>Create Promoter Profile</button>
           <h4>Owner Show Page</h4>
+          <button id='/ownerupdate' onClick={this.handleButtonClick}>Update Owner Profile</button>
         </div>
       )
     }
     else if (!this.props.currentUser.renter_created && !this.props.currentUser.owner_created){
       return (
         <div>
-          <button onClick={this.handleRenterClick}>Create Promoter Profile</button>
-          <button onClick={this.handleOwnerClick}>Create Owner Profile</button>
+          <button id='/promotercreate' onClick={this.handleButtonClick}>Create Promoter Profile</button>
+          <button id='/ownercreate'onClick={this.handleButtonClick}>Create Owner Profile</button>
         </div>
       )
     }
