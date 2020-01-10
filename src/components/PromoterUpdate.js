@@ -53,6 +53,28 @@ class PromoterUpdate extends Component{
             this.props.history.push('/dashboard')
         })
       }
+      
+      handleDelete = () => {
+        const reqObj = {
+          method: 'PATCH', 
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            renter_created: null,
+            renter_name: null,
+            renter_location: null,
+            renter_info: null
+          })
+        }
+    
+        fetch(`http://localhost:3001/users/${this.props.currentUser.id}`, reqObj)
+        .then(resp => resp.json())
+        .then(user => {
+            this.props.updateRenterProfile(user)
+            this.props.history.push('/dashboard')
+        })
+      }
 
 
     render(){ 
@@ -65,6 +87,7 @@ class PromoterUpdate extends Component{
                     Info <input type='text' name={'renter_info'} onChange={(e) => this.handleInputChange(e)} value={this.state.renter_info} /><br/>
                     <input type='submit' value='submit' />
                 </form>
+                <button onClick={this.handleDelete}>Delete This Profile</button>
             </div>
         );
     }
@@ -80,7 +103,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(updateRenterProfile(user))
         },
         loginSuccess: (user) => {
-        dispatch(loginSuccess(user))
+            dispatch(loginSuccess(user))
         }
     }
 }

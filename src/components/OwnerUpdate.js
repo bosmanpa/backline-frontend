@@ -54,6 +54,27 @@ class OwnerUpdate extends Component{
         })
       }
 
+      handleDelete = () => {
+        const reqObj = {
+          method: 'PATCH', 
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            owner_created: null,
+            owner_name: null,
+            owner_location: null,
+            owner_info: null
+          })
+        }
+    
+        fetch(`http://localhost:3001/users/${this.props.currentUser.id}`, reqObj)
+        .then(resp => resp.json())
+        .then(user => {
+            this.props.updateOwnerProfile(user)
+            this.props.history.push('/dashboard')
+        })
+      }
 
     render(){ 
         return (
@@ -65,6 +86,7 @@ class OwnerUpdate extends Component{
                     Info <input type='text' name={'owner_info'} onChange={(e) => this.handleInputChange(e)} value={this.state.owner_info} /><br/>
                     <input type='submit' value='submit' />
                 </form>
+                <button onClick={this.handleDelete}>Delete This Profile</button>
             </div>
         );
     }

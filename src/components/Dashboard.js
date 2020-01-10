@@ -13,17 +13,16 @@ class Dashboard extends Component {
     if(this.props.currentUser.renter_created && this.props.currentUser.owner_created){    
     return (
       <div>
-        <h4>Promoter Show Page</h4>
+        <button id='/promotershow' onClick={this.handleButtonClick}>View Promoter Profile</button>
         <button id='/promoterupdate' onClick={this.handleButtonClick}>Update Promoter Profile</button>
-        <h4>Owner Show Page</h4>
+        <button id='/ownershow' onClick={this.handleButtonClick}>View Owner Profile</button>
         <button id='/ownerupdate' onClick={this.handleButtonClick}>Update Owner Profile</button>
-
       </div>
     )}
     else if (this.props.currentUser.renter_created && !this.props.currentUser.owner_created) {
       return(
         <div>
-          <h4>Promoter Show Page</h4>
+          <button id='/promotershow' onClick={this.handleButtonClick}>View Promoter Profile</button>
           <button id='/promoterupdate' onClick={this.handleButtonClick}>Update Promoter Profile</button>
           <button id='/ownercreate' onClick={this.handleButtonClick}>Create Owner Profile</button>
         </div>
@@ -33,7 +32,7 @@ class Dashboard extends Component {
       return (
         <div>
           <button id='/promotercreate' onClick={this.handleButtonClick}>Create Promoter Profile</button>
-          <h4>Owner Show Page</h4>
+          <button id='/ownershow' onClick={this.handleButtonClick}>View Owner Profile</button>
           <button id='/ownerupdate' onClick={this.handleButtonClick}>Update Owner Profile</button>
         </div>
       )
