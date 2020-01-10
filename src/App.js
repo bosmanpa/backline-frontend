@@ -7,6 +7,8 @@ import OwnerCreate from './components/OwnerCreate'
 import PromoterCreate from './components/PromoterCreate'
 import OwnerUpdate from './components/OwnerUpdate'
 import PromoterUpdate from './components/PromoterUpdate'
+import OwnerProfile from './components/OwnerProfile'
+import PromoterProfile from './components/PromoterProfile'
 import './App.css';
 
 function App() {
@@ -21,6 +23,8 @@ function App() {
             <Route exact path='/ownercreate' component={OwnerCreate} />
             <Route exact path='/ownerupdate' component={OwnerUpdate} />
             <Route exact path='/promoterupdate' component={PromoterUpdate} />
+            <Route exact path='/ownerprofile' component={OwnerProfile} />
+            <Route exact path='/promoterprofile' component={PromoterProfile} />
           </Switch>
       </div>
     </BrowserRouter>

@@ -50,7 +50,7 @@ class PromoterUpdate extends Component{
         .then(resp => resp.json())
         .then(user => {
             this.props.updateRenterProfile(user)
-            this.props.history.push('/dashboard')
+            this.props.history.push('/promoterprofile')
         })
       }
       
@@ -61,7 +61,7 @@ class PromoterUpdate extends Component{
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            renter_created: null,
+            renter_created: null, 
             renter_name: null,
             renter_location: null,
             renter_info: null

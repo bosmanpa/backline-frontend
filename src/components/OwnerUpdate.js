@@ -50,7 +50,7 @@ class OwnerUpdate extends Component{
         .then(resp => resp.json())
         .then(user => {
             this.props.updateOwnerProfile(user)
-            this.props.history.push('/dashboard')
+            this.props.history.push('/ownerprofile')
         })
       }
 
