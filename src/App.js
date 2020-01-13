@@ -9,6 +9,7 @@ import OwnerUpdate from './components/OwnerUpdate'
 import PromoterUpdate from './components/PromoterUpdate'
 import OwnerProfile from './components/OwnerProfile'
 import PromoterProfile from './components/PromoterProfile'
+import AddEquipment from './components/AddEquipment'
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route exact path='/promoterupdate' component={PromoterUpdate} />
             <Route exact path='/ownerprofile' component={OwnerProfile} />
             <Route exact path='/promoterprofile' component={PromoterProfile} />
+            <Route exact path='/addequipment' component={AddEquipment} />
           </Switch>
       </div>
     </BrowserRouter>

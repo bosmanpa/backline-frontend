@@ -3,19 +3,15 @@ import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
 import { loginSuccess } from '../actions/index'
 
-
-class OwnerProfile extends Component{
+class AddEquipment extends Component{
+    state = {
+        equipment_type: null
+    }
     
-    handleButtonClick = (event) => { 
-        this.props.history.push(event.target.id)
-      }
-
     render(){
         return(
             <div>
-                Owner Profile
-                <button id='/ownerupdate' onClick={this.handleButtonClick}>Update Owner Profile</button>
-                <button id='/addequipment' onClick={this.handleButtonClick}>Add Equipment</button>
+                Add Equipment
             </div>
         )
     }
@@ -33,4 +29,4 @@ const mapStateToProps = (state) => {
     }
   }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(OwnerProfile)) 
+export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(AddEquipment)) 
