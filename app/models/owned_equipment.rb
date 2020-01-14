@@ -1,4 +1,4 @@
 class OwnedEquipment < ApplicationRecord
-    belongs_to :user
-    belongs_to :equipment_models
+    belongs_to :user, foreign_key: :owner_id
+    belongs_to :equipment_model, foreign_key: :owner_id
 end

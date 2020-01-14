@@ -4,7 +4,6 @@ class CreateOwnedEquipments < ActiveRecord::Migration[6.0]
       t.integer :owner_id
       t.integer :type_id
       t.integer :model_id
-      t.string :description
       t.integer :price
 
       t.timestamps
