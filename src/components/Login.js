@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../App.css';
 import { loginSuccess } from '../actions/index'
 import { connect } from 'react-redux'
+import { setEquipmentTypes } from '../actions/index'
+import { setEquipmentModels } from '../actions/index'
 
 class Login extends Component {
     state = {
@@ -63,6 +65,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loginSuccess: (user) => {
       dispatch(loginSuccess(user))
+    },
+    setEquipmentTypes: (equipmentTypes) => {
+      dispatch(setEquipmentTypes(equipmentTypes))
+    },
+    setEquipmentModels: (equipmentModels) => {
+      dispatch(setEquipmentModels(equipmentModels))
     }
   }
 }

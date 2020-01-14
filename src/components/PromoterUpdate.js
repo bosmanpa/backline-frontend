@@ -3,6 +3,8 @@ import { updateRenterProfile } from '../actions/index'
 import { loginSuccess } from '../actions/index'
 import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
+import { setEquipmentTypes } from '../actions/index'
+import { setEquipmentModels } from '../actions/index'
 
 class PromoterUpdate extends Component{
     
@@ -104,6 +106,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         loginSuccess: (user) => {
             dispatch(loginSuccess(user))
+        },
+        setEquipmentTypes: (equipmentTypes) => {
+          dispatch(setEquipmentTypes(equipmentTypes))
+        },
+        setEquipmentModels: (equipmentModels) => {
+          dispatch(setEquipmentModels(equipmentModels))
         }
     }
 }

@@ -1,9 +1,9 @@
-export default function ownedEquipment(state = {}, action) {
+const initialState = []
+
+export default function ownedEquipment(state = initialState, action) {
     switch (action.type) {
         case "SET_OWNED_EQUIPMENT":
-            return{
-                equipment: action.equipments
-            }
+            return action.equipments
         default:
             return state
     }

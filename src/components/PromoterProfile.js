@@ -3,6 +3,8 @@ import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
 import { loginSuccess } from '../actions/index'
 import { setUserEvents } from '../actions/index'
+import { setEquipmentTypes } from '../actions/index'
+import { setEquipmentModels } from '../actions/index'
 
 
 
@@ -54,8 +56,16 @@ const mapStateToProps = (state) => {
       },
       setUserEvents: (events) => {
         dispatch(setUserEvents(events))
+      },
+      setEquipmentTypes: (equipmentTypes) => {
+        dispatch(setEquipmentTypes(equipmentTypes))
+      },
+      setEquipmentModels: (equipmentModels) => {
+        dispatch(setEquipmentModels(equipmentModels))
       }
     }
   }
 
+
+  
 export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(PromoterProfile)) 

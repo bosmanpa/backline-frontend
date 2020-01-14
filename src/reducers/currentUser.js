@@ -1,4 +1,18 @@
-export default function currentUser(state = {}, action) {
+const initialState ={
+  id: null,
+  renter_created: null, 
+  renter_name: '', 
+  renter_location: '', 
+  renter_info: '', 
+  renter_image: '', 
+  owner_created: null, 
+  owner_name: '', 
+  owner_location: '', 
+  owner_info: '', 
+  owner_image: ''
+}
+
+export default function currentUser(state = initialState, action) {
     switch (action.type) {
       case 'LOGIN_SUCCESS': 
         return {

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
 import { loginSuccess } from '../actions/index'
+import { setEquipmentTypes } from '../actions/index'
+import { setEquipmentModels } from '../actions/index'
 
 class AddEquipment extends Component{
     state = {
@@ -149,6 +151,12 @@ const mapStateToProps = (state) => {
     return {
       loginSuccess: (user) => {
         dispatch(loginSuccess(user))
+      },
+      setEquipmentTypes: (equipmentTypes) => {
+        dispatch(setEquipmentTypes(equipmentTypes))
+      },
+      setEquipmentModels: (equipmentModels) => {
+        dispatch(setEquipmentModels(equipmentModels))
       }
     }
   }

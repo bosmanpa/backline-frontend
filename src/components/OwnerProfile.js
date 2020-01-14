@@ -3,6 +3,9 @@ import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
 import { loginSuccess } from '../actions/index'
 import { setOwnedEquipment } from '../actions/index'
+import { setEquipmentTypes } from '../actions/index'
+import { setEquipmentModels } from '../actions/index'
+import OwnedEquipment from './OwnedEquipment'
 
 
 
@@ -20,12 +23,15 @@ class OwnerProfile extends Component{
     })
   }
 
+
   componentDidUpdate(prevState) {
     if (this.props.currentUser.owner_name !== prevState.currentUser.owner_name) {
+      
       const owned_equipment = this.state.owned_equipments.filter(equipment => equipment.owner_id === this.props.currentUser.id)
       this.props.setOwnedEquipment(owned_equipment)
       }
   }
+
 
 
     handleButtonClick = (event) => { 
@@ -33,18 +39,21 @@ class OwnerProfile extends Component{
       }
 
     renderOwnedEquipments = () =>{
-      this.props.ownedEquipment.equipment.forEach(equipment => {
-        return
-      });
+      if (this.props.ownedEquipment.length !== 0){
+        console.log('hey')
+        return this.props.ownedEquipment.map(equipment => {
+        return <OwnedEquipment equipment={equipment}/>
+      })}
     }
 
     render(){
+    
         return(
             <div>
                 Owner Profile
                 <button id='/ownerupdate' onClick={this.handleButtonClick}>Update Owner Profile</button>
                 <button id='/addequipment' onClick={this.handleButtonClick}>Add Equipment</button>
-                {this.renderOwnedEquipments}
+                {this.renderOwnedEquipments()}
             </div>
         )
     }
@@ -61,6 +70,12 @@ const mapStateToProps = (state) => {
       },
       setOwnedEquipment: (equipments) => {
         dispatch(setOwnedEquipment(equipments))
+      },
+      setEquipmentTypes: (equipmentTypes) => {
+        dispatch(setEquipmentTypes(equipmentTypes))
+      },
+      setEquipmentModels: (equipmentModels) => {
+        dispatch(setEquipmentModels(equipmentModels))
       }
     }
   }

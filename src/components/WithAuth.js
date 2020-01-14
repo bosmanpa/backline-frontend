@@ -25,9 +25,20 @@ export default function WithAuth(WrappedComponent) {
               this.props.history.push('/login')
             } else {
               this.props.loginSuccess(data)
+      
             }
           })
-      }
+      
+          fetch('http://localhost:3001/equipment_types')
+          .then(resp =>resp.json())
+          .then(data => this.props.setEquipmentTypes(data))
+          
+          fetch('http://localhost:3001/equipment_models')
+          .then(resp =>resp.json())
+          .then(data => this.props.setEquipmentModels(data))
+      
+        }
+
     }
 
     render() {

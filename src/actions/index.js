@@ -46,3 +46,17 @@ export const setUserEvents = (events) => {
     events
   }
 }
+
+export const setEquipmentTypes = (equipmentTypes) => {
+  return {
+    type: "SET_EQUIPMENT_TYPES",
+    equipmentTypes
+  }
+}
+
+export const setEquipmentModels = (equipmentModels) => {
+  return {
+    type: "SET_EQUIPMENT_MODELS",
+    equipmentModels
+  }
+}
