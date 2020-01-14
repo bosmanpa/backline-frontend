@@ -32,3 +32,17 @@ export const updateRenterProfile = (user) =>{
     user
   }
 }
+
+export const setOwnedEquipment = (equipments) => {
+  return {
+    type: "SET_OWNED_EQUIPMENT",
+    equipments
+  }
+}
+
+export const setUserEvents = (events) => {
+  return {
+    type: "SET_USER_EVENTS",
+    events
+  }
+}

@@ -23,7 +23,6 @@ handleInputChange = (e) => {
       },
       body: JSON.stringify(this.state)
     }
-
     fetch('http://localhost:3001/users', reqObj)
     .then(resp => resp.json())
     .then(data => {
