@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
 
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
 class OwnerCreate extends Component{
     
     state={
@@ -16,7 +22,7 @@ class OwnerCreate extends Component{
 
     handleInputChange = (e) => {
         this.setState({
-          [e.target.name]: e.target.value
+          [e.target.id]: e.target.value
         })
       }
 
@@ -34,22 +40,48 @@ class OwnerCreate extends Component{
         .then(resp => resp.json())
         .then(user => {
             this.props.addOwnerProfile(user)
-            this.props.history.push('/dashboard')
+            this.props.history.push('/ownerprofile')
         })
       }
-
+      handleBackClick = () =>{
+        this.props.history.push('/dashboard')
+      }
 
     render(){ 
         return (
-            <div>
-                PromoterCreate
-                <form onSubmit={this.handleSubmit}>
-                    Owner Name <input name={'owner_name'} onChange={(e) => this.handleInputChange(e)} value={this.state.owner_name} /><br/>
-                    Location <input name={'owner_location'} onChange={(e) => this.handleInputChange(e)} value={this.state.owner_location} /><br/>
-                    Info <input name={'owner_info'} onChange={(e) => this.handleInputChange(e)} value={this.state.owner_info} /><br/>
-                    <input type='submit' value='submit' />
-                </form>
-            </div>
+          <Container>
+        <Row>
+            <Col></Col>
+            <Col xs={6}> 
+              <h2>Create Your Profile</h2>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="owner_name" value={this.state.owner_name} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Owner/Company Name</Form.Label>
+                        <Form.Control placeholder="Enter Owner/Company Name" />
+                    </Form.Group>
+                    <Form.Group controlId="owner_location" value={this.state.owner_location} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Location</Form.Label>
+                        <Form.Control placeholder="Enter Location" />
+                    </Form.Group>
+                    <Form.Group controlId="owner_info" value={this.state.owner_info} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Owner/Company Info</Form.Label>
+                        <Form.Control placeholder="Enter Owner/Company Info" />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                    Create Profile
+                    </Button>
+                </Form>
+            </Col>
+            <Col></Col>
+        </Row>
+        <Row>
+              <Col></Col>
+              <Col>
+              <Button variant="primary" onClick={this.handleBackClick}>Back To Dashboard</Button>
+              </Col>
+              <Col></Col>
+              </Row>
+      </Container>
         );
     }
 }

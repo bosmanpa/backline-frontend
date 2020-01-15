@@ -5,6 +5,11 @@ import WithAuth from './WithAuth.js'
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
 
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
 class Dashboard extends Component {
 
   handleButtonClick = (event) => { 
@@ -14,33 +19,57 @@ class Dashboard extends Component {
   render(){
     if(this.props.currentUser.renter_created && this.props.currentUser.owner_created){    
     return (
-      <div>
-        <button id='/promoterprofile' onClick={this.handleButtonClick}>View Promoter Profile</button>
-        <button id='/ownerprofile' onClick={this.handleButtonClick}>View Owner Profile</button>
-      </div>
+    <Container>
+      <Row>
+        <Col>
+        <Button variant="primary" id='/promoterprofile' onClick={this.handleButtonClick}>View Promoter Profile</Button>
+        </Col>
+        <Col>
+        <Button variant="primary" id='/ownerprofile' onClick={this.handleButtonClick}>View Owner Profile</Button>
+        </Col>
+      </Row>
+    </Container>
     )}
     else if (this.props.currentUser.renter_created && !this.props.currentUser.owner_created) {
       return(
-        <div>
-          <button id='/promoterprofile' onClick={this.handleButtonClick}>View Promoter Profile</button>
-          <button id='/ownercreate' onClick={this.handleButtonClick}>Create Owner Profile</button>
-        </div>
+        <Container>
+          <Row>
+            <Col>
+            <Button variant="primary" id='/promoterprofile' onClick={this.handleButtonClick}>View Promoter Profile</Button>
+            </Col>
+            <Col>
+            <Button variant="primary" id='/ownercreate' onClick={this.handleButtonClick}>Create Owner Profile</Button>
+            </Col>
+          </Row>
+        </Container>
       )
     }
     else if (!this.props.currentUser.renter_created && this.props.currentUser.owner_created){
       return (
-        <div>
-          <button id='/promotercreate' onClick={this.handleButtonClick}>Create Promoter Profile</button>
-          <button id='/ownerprofile' onClick={this.handleButtonClick}>View Owner Profile</button>
-        </div>
+        <Container>
+          <Row>
+            <Col>
+            <Button variant="primary" id='/promotercreate' onClick={this.handleButtonClick}>Create Promoter Profile</Button>
+            </Col>
+            <Col>
+            <Button variant="primary" id='/ownerprofile' onClick={this.handleButtonClick}>View Owner Profile</Button>
+            </Col>
+          </Row>
+        </Container>
       )
     }
     else if (!this.props.currentUser.renter_created && !this.props.currentUser.owner_created){
       return (
-        <div>
-          <button id='/promotercreate' onClick={this.handleButtonClick}>Create Promoter Profile</button>
-          <button id='/ownercreate'onClick={this.handleButtonClick}>Create Owner Profile</button>
-        </div>
+        <Container>
+          <Row>
+            <Col>
+            <Button variant="primary" id='/promotercreate' onClick={this.handleButtonClick}>Create Promoter Profile</Button>
+            </Col>
+            <Col>
+            <Button variant="primary" id='/ownercreate' onClick={this.handleButtonClick}>Create Owner Profile</Button>
+            </Col>
+          </Row>
+        </Container>      
       )
     }
   

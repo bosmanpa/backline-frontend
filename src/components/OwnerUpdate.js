@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
 
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
 class OwnerUpdate extends Component{
     
     state={
@@ -34,7 +40,7 @@ class OwnerUpdate extends Component{
 
     handleInputChange = (e) => {
         this.setState({
-          [e.target.name]: e.target.value
+          [e.target.id]: e.target.value
         })
       }
 
@@ -77,19 +83,54 @@ class OwnerUpdate extends Component{
             this.props.history.push('/dashboard')
         })
       }
+      handleBackClick = () =>{
+        this.props.history.push('/ownerprofile')
+      }
 
     render(){ 
         return (
-            <div>
-                OwnerUpdate
-                <form onSubmit={this.handleSubmit}>
-                    Owner Name <input type='text' name={'owner_name'} onChange={(e) => this.handleInputChange(e)} value={this.state.owner_name} /><br/>
-                    Location <input type='text' name={'owner_location'} onChange={(e) => this.handleInputChange(e)} value={this.state.owner_location} /><br/>
-                    Info <input type='text' name={'owner_info'} onChange={(e) => this.handleInputChange(e)} value={this.state.owner_info} /><br/>
-                    <input type='submit' value='submit' />
-                </form>
-                <button onClick={this.handleDelete}>Delete This Profile</button>
-            </div>
+
+
+                      <Container>
+        <Row>
+            <Col></Col>
+            <Col xs={6}> 
+              <h2>Update Your Profile</h2>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="owner_name" value={this.state.owner_name} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Owner/Company Name</Form.Label>
+                        <Form.Control defaultValue={this.state.owner_name} />
+                    </Form.Group>
+                    <Form.Group controlId="owner_location" value={this.state.owner_location} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Location</Form.Label>
+                        <Form.Control defaultValue={this.state.owner_location} />
+                    </Form.Group>
+                    <Form.Group controlId="owner_info" value={this.state.owner_info} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Owner/Company Info</Form.Label>
+                        <Form.Control defaultValue={this.state.owner_info} />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                    Update Profile
+                    </Button>
+                </Form>
+            </Col>
+            <Col></Col>
+        </Row>
+        <Row>
+              <Col></Col>
+              <Col>
+              <Button variant="primary" onClick={this.handleDelete}> Delete this Profile</Button>
+              </Col>
+              <Col></Col>
+              </Row>
+              <Row>
+              <Col></Col>
+              <Col>
+              <Button variant="primary" onClick={this.handleBackClick}>Back To Profile</Button>
+              </Col>
+              <Col></Col>
+              </Row>
+      </Container>
         );
     }
 }

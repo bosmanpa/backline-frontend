@@ -5,13 +5,22 @@ import { loginSuccess } from '../actions/index'
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
 
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
+
+
 class AddEquipment extends Component{
     state = {
         equipment_type: null,
         equipment_model: null,
         filtered_models: [],
         current_model_name: '',
-        current_model_description: ''
+        current_model_description: '',
+        current_model_image: ''
 
     }
     
@@ -79,11 +88,12 @@ class AddEquipment extends Component{
     renderModelInfo = (model) => {
       this.setState({ 
         current_model_name: model.name,
-        current_model_description: model.description
+        current_model_description: model.description,
+        current_model_image: model.image
       })
     }
 
-    handleClick = () => {
+    handleAddClick = () => {
       const reqObj = {
         method: 'POST',
         headers: {
@@ -100,14 +110,19 @@ class AddEquipment extends Component{
       .then(data => {
         this.props.history.push('/ownerprofile')
       })
+    }
 
+    handleBackClick = () =>{
+      this.props.history.push('/ownerprofile')
     }
 
     render(){
           if (this.state.equipment_model === null){
           return(
-          <React.Fragment>
-          <div>
+          <Container>
+          <Row>
+            <Col></Col>
+            <Col>
               <form>
                 <select id='equipment_type' onChange={this.handleTypeChange}>
                 </select>
@@ -116,13 +131,19 @@ class AddEquipment extends Component{
                 <select id='equipment_model' onChange={this.handleChange}>
                 </select>
               </form>
-            </div>
-          </React.Fragment>
+              <Button variant="primary" onClick={this.handleBackClick}>Back To Profile</Button>
+              </Col>
+              <Col></Col>
+              </Row>
+            </Container>
         )}
         else {
           return(         
-           <React.Fragment>
-            <div>
+           <Container>
+
+            <Row>
+              <Col></Col>
+                <Col>
                 <form>
                   <select id='equipment_type' onChange={this.handleTypeChange}>
                   </select>
@@ -131,13 +152,38 @@ class AddEquipment extends Component{
                   <select id='equipment_model' onChange={this.handleChange}>
                   </select>
                 </form>
-              </div>
-              <div>
-              <h3>{this.state.current_model_name}</h3>
-              <p>{this.state.current_model_description}</p>
-              <button onClick={this.handleClick}>Add This Equipment</button>
-            </div>
-            </React.Fragment>
+                </Col>
+                <Col></Col>
+              </Row>
+
+            <Row>
+              <Col></Col>
+              <Col>
+            <Card style={{ width: '22rem'}}>
+            <Card.Body>
+                <Card.Img variant="top" src={this.state.current_model_image}/>
+                <Card.Title>{this.state.current_model_name}</Card.Title>
+                <Card.Text>{this.state.current_model_description}</Card.Text>
+            </Card.Body>
+            </Card>
+            </Col>
+            <Col></Col>
+              </Row>
+              <Row>
+              <Col></Col>
+              <Col>
+              <Button variant="primary" onClick={this.handleAddClick}>Add This Equipment</Button>
+              </Col>
+              <Col></Col>
+              </Row>
+              <Row>
+              <Col></Col>
+              <Col>
+              <Button variant="primary" onClick={this.handleBackClick}>Back To Profile</Button>
+              </Col>
+              <Col></Col>
+              </Row>
+            </Container>
             )
         }
     }

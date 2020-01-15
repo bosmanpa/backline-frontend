@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
 
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
 class PromoterCreate extends Component{
     state={
         renter_name:'',
@@ -15,7 +21,7 @@ class PromoterCreate extends Component{
 
     handleInputChange = (e) => {
         this.setState({
-          [e.target.name]: e.target.value
+          [e.target.id]: e.target.value
         })
       }
 
@@ -37,18 +43,45 @@ class PromoterCreate extends Component{
         })
       }
 
-
+      handleBackClick = () =>{
+        this.props.history.push('/promoterprofile')
+      }
+  
     render(){ 
         return (
-            <div>
-                PromoterCreate
-                <form onSubmit={this.handleSubmit}>
-                    Promoter Name <input name={'renter_name'} onChange={(e) => this.handleInputChange(e)} value={this.state.renter_name} /><br/>
-                    Location <input name={'renter_location'} onChange={(e) => this.handleInputChange(e)} value={this.state.renter_location} /><br/>
-                    Info <input name={'renter_info'} onChange={(e) => this.handleInputChange(e)} value={this.state.renter_info} /><br/>
-                    <input type='submit' value='submit' />
-                </form>
-            </div>
+           <Container>
+        <Row>
+            <Col></Col>
+            <Col xs={6}> 
+              <h2>Create Your Profile</h2>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="renter_name" value={this.state.renter_name} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Promoter/Group Name</Form.Label>
+                        <Form.Control placeholder="Enter Promoter/Group Name" />
+                    </Form.Group>
+                    <Form.Group controlId="renter_location" value={this.state.renter_location} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Location</Form.Label>
+                        <Form.Control placeholder="Enter Location" />
+                    </Form.Group>
+                    <Form.Group controlId="renter_info" value={this.state.renter_info} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Promoter/Group Info</Form.Label>
+                        <Form.Control placeholder="Enter Promoter/Group Info" />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                        Create Profile
+                    </Button>
+                </Form>
+            </Col>
+            <Col></Col>
+        </Row>
+        <Row>
+              <Col></Col>
+              <Col>
+              <Button variant="primary" onClick={this.handleBackClick}>Back To Dashboard</Button>
+              </Col>
+              <Col></Col>
+              </Row>
+      </Container>
         );
     }
 }

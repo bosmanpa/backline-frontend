@@ -5,6 +5,13 @@ import { loginSuccess } from '../actions/index'
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
 
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
+
 class AddEvent extends Component{
     state={
         name: '',
@@ -16,9 +23,14 @@ class AddEvent extends Component{
 
     handleInputChange = (e) => {
         this.setState({
-          [e.target.name]: e.target.value
+          [e.target.id]: e.target.value
         })
       }
+
+      // handleDateChange = (e) => {
+      //   debugger
+
+      //   }
 
       handleSubmit = (e) => {
         e.preventDefault()
@@ -36,20 +48,49 @@ class AddEvent extends Component{
             this.props.history.push('/promoterprofile')
         })
       }
-      
+      handleBackClick = () =>{
+        this.props.history.push('/promoterprofile')
+      }
     render(){
         return (
-            <div>
-                Add Event
-                <form onSubmit={this.handleSubmit}>
-                        Name <input name={'name'} onChange={(e) => this.handleInputChange(e)} value={this.state.name} /><br/>
-                        Location <input name={'location'} onChange={(e) => this.handleInputChange(e)} value={this.state.location} /><br/>
-                        Description <input name={'description'} onChange={(e) => this.handleInputChange(e)} value={this.state.description} /><br/>
-                        Start Date<input type="date" name={'start_date'} onChange={(e) => this.handleInputChange(e)} value={this.state.start_date}/><br/>
-                        End Date<input type="date" name={'end_date'} onChange={(e) => this.handleInputChange(e)} value={this.state.end_date}/><br/>
-                        <input type='submit' value='submit' />
-                </form>
-            </div>
+
+
+            <Container>
+        <Row>
+            <Col></Col>
+            <Col xs={6}> 
+              <h2>Add Event</h2>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="name" value={this.state.name} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Event Name</Form.Label>
+                        <Form.Control placeholder="Enter Event Name" />
+                    </Form.Group>
+                    <Form.Group controlId="location" value={this.state.location} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Location</Form.Label>
+                        <Form.Control placeholder="Enter Event Location" />
+                    </Form.Group>
+                    <Form.Group controlId="description" value={this.state.description} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Event Description</Form.Label>
+                        <Form.Control placeholder="Enter Event Description" />
+                    </Form.Group>
+                    Start Date<input type="date" id='start_date' onChange={(e) => this.handleInputChange(e)} value={this.state.start_date}/>
+                    End Date<input type="date" id='end_date' onChange={(e) => this.handleInputChange(e)} value={this.state.end_date}/><br/>
+                    <Button variant="primary" type="submit">
+                    Create Event
+                    </Button>
+                </Form>
+            </Col>
+            <Col></Col>
+        </Row>
+
+              <Row>
+              <Col></Col>
+              <Col>
+              <Button variant="primary" onClick={this.handleBackClick}>Back To Profile</Button>
+              </Col>
+              <Col></Col>
+              </Row>
+      </Container>
         )
     }
 }

@@ -7,6 +7,12 @@ import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
 import EventCard from './EventCard'
 
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
+import CardGroup from 'react-bootstrap/CardGroup'
 
 
 class PromoterProfile extends Component{
@@ -45,13 +51,38 @@ class PromoterProfile extends Component{
     render(){
     
         return(
-            <div>
-                Promoter Profile
-                <button id='/promoterupdate' onClick={this.handleButtonClick}>Update Promoter Profile</button>
-                <button id='/addevent' onClick={this.handleButtonClick}>Add Event</button>
-                <button id='/dashboard' onClick={this.handleButtonClick}>Back to Dashboard</button>
+
+            <Container>
+            <Row>
+              <Col></Col>
+              <Col>
+              <Button variant="primary" id='/dashboard' onClick={this.handleButtonClick}>Back to Dashboard</Button>
+              </Col>
+              <Col></Col>
+            </Row>
+            <Row>
+              <Col>
+                <h2>Promoter Profile</h2>
+                <Card style={{ width: '28rem'}}>
+                  <Card.Body>
+                    <Card.Title>{this.props.currentUser.renter_name}</Card.Title>
+                    <Card.Text>{this.props.currentUser.renter_location}</Card.Text>
+                    <Card.Text>{this.props.currentUser.renter_info}</Card.Text>
+                  </Card.Body>
+                </Card>
+                <Button variant="primary" id='/promoterupdate' onClick={this.handleButtonClick}>Update Promoter Profile</Button>
+              </Col>
+              <Col>
+                <h2>Your Events</h2>
+                <Button variant="primary" id='/addevent' onClick={this.handleButtonClick}>Add Event</Button>
+                <CardGroup>
                 {this.renderEvents()}
-            </div>
+                </CardGroup>
+              </Col>
+            </Row>
+          </Container>
+        
+        
         )
     }
 }

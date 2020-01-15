@@ -7,8 +7,12 @@ import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
 import OwnedEquipment from './OwnedEquipment'
 
-
-
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
+import CardGroup from 'react-bootstrap/CardGroup'
 
 class OwnerProfile extends Component{
   state={
@@ -48,13 +52,35 @@ class OwnerProfile extends Component{
     render(){
     
         return(
-            <div>
-                Owner Profile
-                <button id='/ownerupdate' onClick={this.handleButtonClick}>Update Owner Profile</button>
-                <button id='/addequipment' onClick={this.handleButtonClick}>Add Equipment</button>
-                <button id='/dashboard' onClick={this.handleButtonClick}>Back to Dashboard</button>
+          <Container>
+            <Row>
+              <Col></Col>
+              <Col>
+              <Button variant="primary" id='/dashboard' onClick={this.handleButtonClick}>Back to Dashboard</Button>
+              </Col>
+              <Col></Col>
+            </Row>
+            <Row>
+              <Col>
+                <h2>Owner Profile</h2>
+                <Card style={{ width: '28rem'}}>
+                  <Card.Body>
+                    <Card.Title>{this.props.currentUser.owner_name}</Card.Title>
+                    <Card.Text>{this.props.currentUser.owner_location}</Card.Text>
+                    <Card.Text>{this.props.currentUser.owner_info}</Card.Text>
+                  </Card.Body>
+                </Card>
+                <Button variant="primary" id='/ownerupdate' onClick={this.handleButtonClick}>Update Owner Profile</Button>
+              </Col>
+              <Col>
+                <h2>Your Owned Equipment</h2>
+                <Button variant="primary" id='/addequipment' onClick={this.handleButtonClick}>Add Equipment</Button>
+                <CardGroup>
                 {this.renderOwnedEquipments()}
-            </div>
+                </CardGroup>
+              </Col>
+            </Row>
+          </Container>
         )
     }
 }

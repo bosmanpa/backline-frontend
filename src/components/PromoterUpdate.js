@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
 
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
 class PromoterUpdate extends Component{
     
     state={
@@ -34,7 +40,7 @@ class PromoterUpdate extends Component{
 
     handleInputChange = (e) => {
         this.setState({
-          [e.target.name]: e.target.value
+          [e.target.id]: e.target.value
         })
       }
 
@@ -74,23 +80,57 @@ class PromoterUpdate extends Component{
         .then(resp => resp.json())
         .then(user => {
             this.props.updateRenterProfile(user)
-            this.props.history.push('/dashboard')
+            this.props.history.push('/renterprofile')
         })
+      }
+
+      handleBackClick = () =>{
+        this.props.history.push('/promoterprofile')
       }
 
 
     render(){ 
         return (
-            <div>
-                PromoterUpdate
-                <form onSubmit={this.handleSubmit}>
-                    Promoter Name <input type='text' name={'renter_name'} onChange={(e) => this.handleInputChange(e)} value={this.state.renter_name} /><br/>
-                    Location <input type='text' name={'renter_location'} onChange={(e) => this.handleInputChange(e)} value={this.state.renter_location} /><br/>
-                    Info <input type='text' name={'renter_info'} onChange={(e) => this.handleInputChange(e)} value={this.state.renter_info} /><br/>
-                    <input type='submit' value='submit' />
-                </form>
-                <button onClick={this.handleDelete}>Delete This Profile</button>
-            </div>
+            <Container>
+        <Row>
+            <Col></Col>
+            <Col xs={6}> 
+              <h2>Update Your Profile</h2>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="renter_name" value={this.state.renter_name} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Owner/Company Name</Form.Label>
+                        <Form.Control defaultValue={this.state.renter_name} />
+                    </Form.Group>
+                    <Form.Group controlId="renter_location" value={this.state.renter_location} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Location</Form.Label>
+                        <Form.Control defaultValue={this.state.renter_location} />
+                    </Form.Group>
+                    <Form.Group controlId="renter_info" value={this.state.renter_info} onChange={(e) => this.handleInputChange(e)}>
+                        <Form.Label>Owner/Company Info</Form.Label>
+                        <Form.Control defaultValue={this.state.renter_info} />
+                    </Form.Group>
+                    <Button variant="primary" type="submit">
+                    Update Profile
+                    </Button>
+                </Form>
+            </Col>
+            <Col></Col>
+        </Row>
+        <Row>
+              <Col></Col>
+              <Col>
+              <Button variant="primary" onClick={this.handleDelete}> Delete this Profile</Button>
+              </Col>
+              <Col></Col>
+              </Row>
+              <Row>
+              <Col></Col>
+              <Col>
+              <Button variant="primary" onClick={this.handleBackClick}>Back To Profile</Button>
+              </Col>
+              <Col></Col>
+              </Row>
+      </Container>
         );
     }
 }
