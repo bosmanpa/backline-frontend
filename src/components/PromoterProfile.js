@@ -5,6 +5,7 @@ import { loginSuccess } from '../actions/index'
 import { setUserEvents } from '../actions/index'
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
+import EventCard from './EventCard'
 
 
 
@@ -33,6 +34,14 @@ class PromoterProfile extends Component{
         this.props.history.push(e.target.id)
       }
 
+      renderEvents = () =>{
+        if (this.props.userEvents.length !== 0){
+          return this.props.userEvents.map(event => {
+          return <EventCard event={event}/>
+        })}
+      }
+
+
     render(){
     
         return(
@@ -40,13 +49,17 @@ class PromoterProfile extends Component{
                 Promoter Profile
                 <button id='/promoterupdate' onClick={this.handleButtonClick}>Update Promoter Profile</button>
                 <button id='/addevent' onClick={this.handleButtonClick}>Add Event</button>
+                <button id='/dashboard' onClick={this.handleButtonClick}>Back to Dashboard</button>
+                {this.renderEvents()}
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    return {currentUser: state.currentUser, userEvents: state.userEvents}
+    return {
+      currentUser: state.currentUser, 
+      userEvents: state.userEvents}
   }
   
   const mapDispatchToProps = (dispatch) => {

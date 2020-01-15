@@ -9,6 +9,7 @@ import OwnedEquipment from './OwnedEquipment'
 
 
 
+
 class OwnerProfile extends Component{
   state={
     owned_equipments: []
@@ -26,7 +27,6 @@ class OwnerProfile extends Component{
 
   componentDidUpdate(prevState) {
     if (this.props.currentUser.owner_name !== prevState.currentUser.owner_name) {
-      
       const owned_equipment = this.state.owned_equipments.filter(equipment => equipment.owner_id === this.props.currentUser.id)
       this.props.setOwnedEquipment(owned_equipment)
       }
@@ -39,8 +39,7 @@ class OwnerProfile extends Component{
       }
 
     renderOwnedEquipments = () =>{
-      if (this.props.ownedEquipment.length !== 0){
-        console.log('hey')
+      if (this.props.ownedEquipment.length !== 0 && this.props.equipmentModels.length !==0 && this.props.equipmentTypes.length !==0 ){
         return this.props.ownedEquipment.map(equipment => {
         return <OwnedEquipment equipment={equipment}/>
       })}
@@ -53,6 +52,7 @@ class OwnerProfile extends Component{
                 Owner Profile
                 <button id='/ownerupdate' onClick={this.handleButtonClick}>Update Owner Profile</button>
                 <button id='/addequipment' onClick={this.handleButtonClick}>Add Equipment</button>
+                <button id='/dashboard' onClick={this.handleButtonClick}>Back to Dashboard</button>
                 {this.renderOwnedEquipments()}
             </div>
         )
@@ -60,7 +60,12 @@ class OwnerProfile extends Component{
 }
 
 const mapStateToProps = (state) => {
-    return {currentUser: state.currentUser, ownedEquipment: state.ownedEquipment}
+    return {
+      currentUser: state.currentUser, 
+      ownedEquipment: state.ownedEquipment,
+      equipmentModels: state.equipmentModels, 
+      equipmentTypes: state.equipmentTypes
+    }
   }
   
   const mapDispatchToProps = (dispatch) => {

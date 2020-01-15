@@ -11,6 +11,7 @@ import OwnerProfile from './components/OwnerProfile'
 import PromoterProfile from './components/PromoterProfile'
 import AddEquipment from './components/AddEquipment'
 import AddEvent from './components/AddEvent'
+import EventShow from './components/EventShow'
 import './App.css';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Route exact path='/promoterprofile' component={PromoterProfile} />
             <Route exact path='/addequipment' component={AddEquipment} />
             <Route exact path='/addevent' component={AddEvent} />
+            <Route exact path='/eventshow' component={EventShow} />
           </Switch>
       </div>
     </BrowserRouter>

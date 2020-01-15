@@ -60,3 +60,10 @@ export const setEquipmentModels = (equipmentModels) => {
     equipmentModels
   }
 }
+
+export const eventShow = (event) => {
+  return{
+    type: "SHOW_EVENT",
+    event
+  }
+}
