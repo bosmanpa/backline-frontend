@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import { loginSuccess } from '../actions/index'
 import { connect } from 'react-redux'
-import WithAuth from './WithAuth.js'
-import { setEquipmentTypes } from '../actions/index'
-import { setEquipmentModels } from '../actions/index'
-import { setAllOwnedEquipment } from '../actions/index'
 
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
@@ -82,21 +77,5 @@ const mapStateToProps = (state) => {
   return {currentUser: state.currentUser}
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    loginSuccess: (user) => {
-      dispatch(loginSuccess(user))
-    },
-    setEquipmentTypes: (equipmentTypes) => {
-      dispatch(setEquipmentTypes(equipmentTypes))
-    },
-    setEquipmentModels: (equipmentModels) => {
-      dispatch(setEquipmentModels(equipmentModels))
-    },
-    setAllOwnedEquipment: (equipments) => {
-      dispatch(setAllOwnedEquipment(equipments))
-    }
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(Dashboard));
+export default connect(mapStateToProps, null)(Dashboard);
