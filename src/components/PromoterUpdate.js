@@ -5,6 +5,8 @@ import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
+import { setAllOwnedEquipment } from '../actions/index'
+
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -80,7 +82,7 @@ class PromoterUpdate extends Component{
         .then(resp => resp.json())
         .then(user => {
             this.props.updateRenterProfile(user)
-            this.props.history.push('/renterprofile')
+            this.props.history.push('/dashboard')
         })
       }
 
@@ -107,7 +109,7 @@ class PromoterUpdate extends Component{
                     </Form.Group>
                     <Form.Group controlId="renter_info" value={this.state.renter_info} onChange={(e) => this.handleInputChange(e)}>
                         <Form.Label>Owner/Company Info</Form.Label>
-                        <Form.Control defaultValue={this.state.renter_info} />
+                        <Form.Control as="textarea" rows="3" defaultValue={this.state.renter_info} />
                     </Form.Group>
                     <Button variant="primary" type="submit">
                     Update Profile
@@ -152,6 +154,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         setEquipmentModels: (equipmentModels) => {
           dispatch(setEquipmentModels(equipmentModels))
+        },
+        setAllOwnedEquipment: (equipments) => {
+          dispatch(setAllOwnedEquipment(equipments))
         }
     }
 }

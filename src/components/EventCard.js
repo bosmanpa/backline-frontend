@@ -15,6 +15,7 @@ class EventCard extends Component {
         this.props.history.push('/eventshow')
     }
 
+
     render () {
     return(
         <Card onClick={() => this.handleClick(this.props.event)} style={{ width: '18rem'}}>

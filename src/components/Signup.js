@@ -3,6 +3,8 @@ import { loginSuccess } from '../actions/index'
 import { connect } from 'react-redux';
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
+import { setAllOwnedEquipment } from '../actions/index'
+
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -82,6 +84,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setEquipmentModels: (equipmentModels) => {
       dispatch(setEquipmentModels(equipmentModels))
+    },
+    setAllOwnedEquipment: (equipments) => {
+      dispatch(setAllOwnedEquipment(equipments))
     }
   }
 }

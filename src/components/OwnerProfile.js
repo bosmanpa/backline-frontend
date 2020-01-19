@@ -5,6 +5,7 @@ import { loginSuccess } from '../actions/index'
 import { setOwnedEquipment } from '../actions/index'
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
+import { setAllOwnedEquipment } from '../actions/index'
 import OwnedEquipment from './OwnedEquipment'
 
 import Button from 'react-bootstrap/Button'
@@ -90,7 +91,8 @@ const mapStateToProps = (state) => {
       currentUser: state.currentUser, 
       ownedEquipment: state.ownedEquipment,
       equipmentModels: state.equipmentModels, 
-      equipmentTypes: state.equipmentTypes
+      equipmentTypes: state.equipmentTypes,
+      allOwnedEquipment: state.allOwnedEquipment
     }
   }
   
@@ -107,6 +109,9 @@ const mapStateToProps = (state) => {
       },
       setEquipmentModels: (equipmentModels) => {
         dispatch(setEquipmentModels(equipmentModels))
+      },
+      setAllOwnedEquipment: (equipments) => {
+        dispatch(setAllOwnedEquipment(equipments))
       }
     }
   }

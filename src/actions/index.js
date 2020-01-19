@@ -67,3 +67,10 @@ export const eventShow = (event) => {
     event
   }
 }
+
+export const setAllOwnedEquipment = (equipments) => {
+  return{
+    type: "SET_ALL_OWNED_EQUIPMENT",
+    equipments
+  }
+}

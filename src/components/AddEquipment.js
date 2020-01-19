@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { loginSuccess } from '../actions/index'
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
+import { setAllOwnedEquipment } from '../actions/index'
+
 
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
@@ -21,7 +23,6 @@ class AddEquipment extends Component{
         current_model_name: '',
         current_model_description: '',
         current_model_image: ''
-
     }
     
     componentDidMount(){
@@ -104,7 +105,6 @@ class AddEquipment extends Component{
           model_id: parseInt(this.state.equipment_model)
         })
       }
-      console.log(reqObj)
       fetch('http://localhost:3001/owned_equipments', reqObj)
       .then(resp => resp.json())
       .then(data => {
@@ -203,6 +203,9 @@ const mapStateToProps = (state) => {
       },
       setEquipmentModels: (equipmentModels) => {
         dispatch(setEquipmentModels(equipmentModels))
+      },
+      setAllOwnedEquipment: (equipments) => {
+        dispatch(setAllOwnedEquipment(equipments))
       }
     }
   }

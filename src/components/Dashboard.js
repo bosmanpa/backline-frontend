@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import WithAuth from './WithAuth.js'
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
+import { setAllOwnedEquipment } from '../actions/index'
 
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
@@ -91,6 +92,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setEquipmentModels: (equipmentModels) => {
       dispatch(setEquipmentModels(equipmentModels))
+    },
+    setAllOwnedEquipment: (equipments) => {
+      dispatch(setAllOwnedEquipment(equipments))
     }
   }
 }

@@ -36,9 +36,11 @@ export default function WithAuth(WrappedComponent) {
           fetch('http://localhost:3001/equipment_models')
           .then(resp =>resp.json())
           .then(data => this.props.setEquipmentModels(data))
-      
         }
 
+          fetch('http://localhost:3001/owned_equipments')
+          .then(resp => resp.json())
+          .then(data => {this.props.setAllOwnedEquipment(data)})
     }
 
     render() {

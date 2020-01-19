@@ -5,6 +5,8 @@ import { loginSuccess } from '../actions/index'
 import { setUserEvents } from '../actions/index'
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
+import { setAllOwnedEquipment } from '../actions/index'
+
 import EventCard from './EventCard'
 
 import Button from 'react-bootstrap/Button'
@@ -106,6 +108,9 @@ const mapStateToProps = (state) => {
       },
       setEquipmentModels: (equipmentModels) => {
         dispatch(setEquipmentModels(equipmentModels))
+      },
+      setAllOwnedEquipment: (equipments) => {
+        dispatch(setAllOwnedEquipment(equipments))
       }
     }
   }

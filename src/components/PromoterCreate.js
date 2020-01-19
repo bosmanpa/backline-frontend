@@ -5,6 +5,8 @@ import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
+import { setAllOwnedEquipment } from '../actions/index'
+
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -39,12 +41,12 @@ class PromoterCreate extends Component{
         .then(resp => resp.json())
         .then(user => {
             this.props.addRenterProfile(user)
-            this.props.history.push('/dashboard')
+            this.props.history.push('/promoterprofile')
         })
       }
 
       handleBackClick = () =>{
-        this.props.history.push('/promoterprofile')
+        this.props.history.push('/dashboard')
       }
   
     render(){ 
@@ -65,7 +67,7 @@ class PromoterCreate extends Component{
                     </Form.Group>
                     <Form.Group controlId="renter_info" value={this.state.renter_info} onChange={(e) => this.handleInputChange(e)}>
                         <Form.Label>Promoter/Group Info</Form.Label>
-                        <Form.Control placeholder="Enter Promoter/Group Info" />
+                        <Form.Control as="textarea" rows="3" placeholder="Enter Promoter/Group Info" />
                     </Form.Group>
                     <Button variant="primary" type="submit">
                         Create Profile
@@ -104,6 +106,9 @@ const mapStateToProps = (state) => {
       },
       setEquipmentModels: (equipmentModels) => {
         dispatch(setEquipmentModels(equipmentModels))
+      },
+      setAllOwnedEquipment: (equipments) => {
+        dispatch(setAllOwnedEquipment(equipments))
       }
     }
   }

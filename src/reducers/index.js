@@ -5,6 +5,7 @@ import userEvents from './userEvents'
 import equipmentTypes from './equipmentTypes'
 import equipmentModels from './equipmentModels'
 import eventShow from './eventShow'
+import allOwnedEquipment from './allOwnedEquipment'
 
 export default combineReducers({
   currentUser,
@@ -12,5 +13,6 @@ export default combineReducers({
   userEvents,
   equipmentTypes,
   equipmentModels,
-  eventShow
+  eventShow,
+  allOwnedEquipment
 })

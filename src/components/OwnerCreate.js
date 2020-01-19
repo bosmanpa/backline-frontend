@@ -5,6 +5,8 @@ import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
+import { setAllOwnedEquipment } from '../actions/index'
+
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -65,7 +67,7 @@ class OwnerCreate extends Component{
                     </Form.Group>
                     <Form.Group controlId="owner_info" value={this.state.owner_info} onChange={(e) => this.handleInputChange(e)}>
                         <Form.Label>Owner/Company Info</Form.Label>
-                        <Form.Control placeholder="Enter Owner/Company Info" />
+                        <Form.Control as="textarea" rows="3" placeholder="Enter Owner/Company Info" />
                     </Form.Group>
                     <Button variant="primary" type="submit">
                     Create Profile
@@ -103,6 +105,9 @@ const mapStateToProps = (state) => {
       },
       setEquipmentModels: (equipmentModels) => {
         dispatch(setEquipmentModels(equipmentModels))
+      },
+      setAllOwnedEquipment: (equipments) => {
+        dispatch(setAllOwnedEquipment(equipments))
       }
     }
   }
