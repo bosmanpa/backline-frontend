@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
-import { loginSuccess } from '../actions/index'
 import { setUserEvents } from '../actions/index'
-import { setEquipmentTypes } from '../actions/index'
-import { setEquipmentModels } from '../actions/index'
-import { setAllOwnedEquipment } from '../actions/index'
 
 import EventCard from './EventCard'
 
@@ -91,30 +86,19 @@ class PromoterProfile extends Component{
 
 const mapStateToProps = (state) => {
     return {
-      currentUser: state.currentUser, 
+      currentUser: state.currentUser,
+      allEvents: state.allEvents, 
       userEvents: state.userEvents}
   }
   
   const mapDispatchToProps = (dispatch) => {
     return {
-      loginSuccess: (user) => {
-        dispatch(loginSuccess(user))
-      },
       setUserEvents: (events) => {
         dispatch(setUserEvents(events))
-      },
-      setEquipmentTypes: (equipmentTypes) => {
-        dispatch(setEquipmentTypes(equipmentTypes))
-      },
-      setEquipmentModels: (equipmentModels) => {
-        dispatch(setEquipmentModels(equipmentModels))
-      },
-      setAllOwnedEquipment: (equipments) => {
-        dispatch(setAllOwnedEquipment(equipments))
       }
     }
   }
 
 
   
-export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(PromoterProfile)) 
+export default connect(mapStateToProps, mapDispatchToProps)(PromoterProfile)

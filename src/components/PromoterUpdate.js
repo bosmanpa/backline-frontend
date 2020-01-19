@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { updateRenterProfile } from '../actions/index'
-import { loginSuccess } from '../actions/index'
-import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
-import { setEquipmentTypes } from '../actions/index'
-import { setEquipmentModels } from '../actions/index'
-import { setAllOwnedEquipment } from '../actions/index'
 
 
 import Form from 'react-bootstrap/Form'
@@ -145,20 +140,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         updateRenterProfile: (user) => {
             dispatch(updateRenterProfile(user))
-        },
-        loginSuccess: (user) => {
-            dispatch(loginSuccess(user))
-        },
-        setEquipmentTypes: (equipmentTypes) => {
-          dispatch(setEquipmentTypes(equipmentTypes))
-        },
-        setEquipmentModels: (equipmentModels) => {
-          dispatch(setEquipmentModels(equipmentModels))
-        },
-        setAllOwnedEquipment: (equipments) => {
-          dispatch(setAllOwnedEquipment(equipments))
         }
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(PromoterUpdate));
+export default connect(mapStateToProps, mapDispatchToProps)(PromoterUpdate)

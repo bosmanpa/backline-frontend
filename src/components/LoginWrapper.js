@@ -7,6 +7,7 @@ import { loginSuccess } from '../actions/index'
 import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
 import { setAllOwnedEquipment } from '../actions/index'
+import { setAllEvents } from '../actions/index'
 
 import Dashboard from './Dashboard'
 import OwnerCreate from './OwnerCreate'
@@ -18,6 +19,7 @@ import PromoterProfile from './PromoterProfile'
 import AddEquipment from './AddEquipment'
 import AddEvent from './AddEvent'
 import EventShow from './EventShow'
+import DashboardRedirect from './DashboardRedirect'
 
 class LoginWrapper extends Component {
 
@@ -41,7 +43,7 @@ class LoginWrapper extends Component {
             <Route exact path='/addequipment' component={AddEquipment} />
             <Route exact path='/addevent' component={AddEvent} />
             <Route exact path='/eventshow' component={EventShow} />
-            <Route path='/' component={Dashboard} />
+            <Route path='/' component={DashboardRedirect} />
           </Switch>
       </div>
     </BrowserRouter>
@@ -55,18 +57,21 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 return {
     loginSuccess: (user) => {
-    dispatch(loginSuccess(user))
+      dispatch(loginSuccess(user))
     },
     setEquipmentTypes: (equipmentTypes) => {
-    dispatch(setEquipmentTypes(equipmentTypes))
+      dispatch(setEquipmentTypes(equipmentTypes))
     },
     setEquipmentModels: (equipmentModels) => {
-    dispatch(setEquipmentModels(equipmentModels))
+      dispatch(setEquipmentModels(equipmentModels))
     },
     setAllOwnedEquipment: (equipments) => {
-    dispatch(setAllOwnedEquipment(equipments))
+      dispatch(setAllOwnedEquipment(equipments))
+    },
+    setAllEvents: (events) => {
+      dispatch(setAllEvents(events))
     }
-}
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(LoginWrapper));

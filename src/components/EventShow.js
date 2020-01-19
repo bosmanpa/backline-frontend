@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
-import { loginSuccess } from '../actions/index'
-import { setEquipmentTypes } from '../actions/index'
-import { setEquipmentModels } from '../actions/index'
-import { Redirect } from 'react-router-dom';
-import { setAllOwnedEquipment } from '../actions/index'
 
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
@@ -25,31 +19,38 @@ class EventShow extends Component {
   }
 
   componentDidMount(){
+    this.typeDropdown()
+  }
+  
+  componentDidUpdate(prevState) {
+    if (this.props.equipmentTypes !== prevState.equipmentTypes) {
+      this.typeDropdown()
+    }
+  }
+
+
+  typeDropdown = () => {
     const typeDropdown = document.getElementById('equipment_type');
-        typeDropdown.length = 0;
-    const defaultTypeOption = document.createElement('option');
-        defaultTypeOption.text = 'Choose Equipment Type';
-        defaultTypeOption.value = null
-        typeDropdown.add(defaultTypeOption);
-        typeDropdown.selectedIndex = 0;    
-    const modelDropdown = document.getElementById('equipment_model');
-        modelDropdown.length = 0;
-    const defaultModelOption = document.createElement('option');
-        defaultModelOption.text = 'Choose Model';
-        defaultModelOption.value = null
-        modelDropdown.add(defaultModelOption);
-        modelDropdown.selectedIndex = 0;    
-    
-    fetch('http://localhost:3001/equipment_types')
-    .then(resp => resp.json())
-    .then(types => {
-      types.forEach(type => {
-        const option = document.createElement('option');
-        option.text = type.name;
-        option.value = type.id;
-        typeDropdown.add(option);
-      })
-    }) 
+    typeDropdown.length = 0;
+const defaultTypeOption = document.createElement('option');
+    defaultTypeOption.text = 'Choose Equipment Type';
+    defaultTypeOption.value = null
+    typeDropdown.add(defaultTypeOption);
+    typeDropdown.selectedIndex = 0;    
+const modelDropdown = document.getElementById('equipment_model');
+    modelDropdown.length = 0;
+const defaultModelOption = document.createElement('option');
+    defaultModelOption.text = 'Choose Model';
+    defaultModelOption.value = null
+    modelDropdown.add(defaultModelOption);
+    modelDropdown.selectedIndex = 0;    
+
+  this.props.equipmentTypes.forEach(type => {
+    const option = document.createElement('option');
+    option.text = type.name;
+    option.value = type.id;
+    typeDropdown.add(option);
+    })
   }
 
   handleTypeChange = (e) => {
@@ -265,7 +266,7 @@ class EventShow extends Component {
         )
     } else {
       return(
-          <Redirect to='/promoterprofile'/>
+          null
       )
   }
 }
@@ -276,25 +277,12 @@ class EventShow extends Component {
 const mapStateToProps = (state) => {
     return {
       event: state.eventShow,
-      allOwnedEquipment: state.allOwnedEquipment
+      allOwnedEquipment: state.allOwnedEquipment,
+      currentUser: state.currentUser,
+      equipmentTypes: state.equipmentTypes,
+      equipmentModels: state.equipmentModels
     }
   }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-      loginSuccess: (user) => {
-        dispatch(loginSuccess(user))
-      },
-      setEquipmentTypes: (equipmentTypes) => {
-        dispatch(setEquipmentTypes(equipmentTypes))
-      },
-      setEquipmentModels: (equipmentModels) => {
-        dispatch(setEquipmentModels(equipmentModels))
-      },
-      setAllOwnedEquipment: (equipments) => {
-        dispatch(setAllOwnedEquipment(equipments))
-      }
-    }
-  }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(EventShow)) 
+export default connect(mapStateToProps, null)(EventShow) 

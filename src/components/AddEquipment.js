@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
-import { loginSuccess } from '../actions/index'
-import { setEquipmentTypes } from '../actions/index'
-import { setEquipmentModels } from '../actions/index'
-import { setAllOwnedEquipment } from '../actions/index'
-
 
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
@@ -25,7 +19,7 @@ class AddEquipment extends Component{
         current_model_image: ''
     }
     
-    componentDidMount(){
+    componentDidMount() {
       this.typeDropdown()
     }
 

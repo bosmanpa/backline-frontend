@@ -74,3 +74,10 @@ export const setAllOwnedEquipment = (equipments) => {
     equipments
   }
 }
+
+export const setAllEvents = (events) => {
+  return{
+    type: "SET_ALL_EVENTS",
+    events
+  }
+}
