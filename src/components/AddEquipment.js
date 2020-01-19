@@ -26,31 +26,37 @@ class AddEquipment extends Component{
     }
     
     componentDidMount(){
+      this.typeDropdown()
+    }
+
+    componentDidUpdate(prevState) {
+      if (this.props.equipmentTypes !== prevState.equipmentTypes) {
+        this.typeDropdown()
+      }
+    }
+
+    typeDropdown = () =>{
       const typeDropdown = document.getElementById('equipment_type');
-          typeDropdown.length = 0;
-      const defaultTypeOption = document.createElement('option');
-          defaultTypeOption.text = 'Choose Equipment Type';
-          defaultTypeOption.value = null
-          typeDropdown.add(defaultTypeOption);
-          typeDropdown.selectedIndex = 0;    
-      const modelDropdown = document.getElementById('equipment_model');
-          modelDropdown.length = 0;
-      const defaultModelOption = document.createElement('option');
-          defaultModelOption.text = 'Choose Model';
-          defaultModelOption.value = null
-          modelDropdown.add(defaultModelOption);
-          modelDropdown.selectedIndex = 0;    
-      
-      fetch('http://localhost:3001/equipment_types')
-      .then(resp => resp.json())
-      .then(types => {
-        types.forEach(type => {
-          const option = document.createElement('option');
-          option.text = type.name;
-          option.value = type.id;
-          typeDropdown.add(option);
-        })
-      }) 
+      typeDropdown.length = 0;
+  const defaultTypeOption = document.createElement('option');
+      defaultTypeOption.text = 'Choose Equipment Type';
+      defaultTypeOption.value = null
+      typeDropdown.add(defaultTypeOption);
+      typeDropdown.selectedIndex = 0;    
+  const modelDropdown = document.getElementById('equipment_model');
+      modelDropdown.length = 0;
+  const defaultModelOption = document.createElement('option');
+      defaultModelOption.text = 'Choose Model';
+      defaultModelOption.value = null
+      modelDropdown.add(defaultModelOption);
+      modelDropdown.selectedIndex = 0;    
+  
+  this.props.equipmentTypes.forEach(type => {
+      const option = document.createElement('option');
+      option.text = type.name;
+      option.value = type.id;
+      typeDropdown.add(option);
+    }) 
     }
 
     handleTypeChange = (e) => {
@@ -190,24 +196,12 @@ class AddEquipment extends Component{
 }
 
 const mapStateToProps = (state) => {
-    return {currentUser: state.currentUser}
-  }
-  
-  const mapDispatchToProps = (dispatch) => {
     return {
-      loginSuccess: (user) => {
-        dispatch(loginSuccess(user))
-      },
-      setEquipmentTypes: (equipmentTypes) => {
-        dispatch(setEquipmentTypes(equipmentTypes))
-      },
-      setEquipmentModels: (equipmentModels) => {
-        dispatch(setEquipmentModels(equipmentModels))
-      },
-      setAllOwnedEquipment: (equipments) => {
-        dispatch(setAllOwnedEquipment(equipments))
-      }
+      currentUser: state.currentUser,
+      equipmentTypes: state.equipmentTypes,
+      equipmentModels: state.equipmentModels
     }
   }
+  
 
-export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(AddEquipment)) 
+export default connect(mapStateToProps, null)(AddEquipment) 

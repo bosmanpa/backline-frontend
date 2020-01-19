@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import WithAuth from './WithAuth';
 import { connect } from 'react-redux';
-import { loginSuccess } from '../actions/index'
 import { setOwnedEquipment } from '../actions/index'
-import { setEquipmentTypes } from '../actions/index'
-import { setEquipmentModels } from '../actions/index'
-import { setAllOwnedEquipment } from '../actions/index'
 import OwnedEquipment from './OwnedEquipment'
 
 import Button from 'react-bootstrap/Button'
@@ -98,22 +93,10 @@ const mapStateToProps = (state) => {
   
   const mapDispatchToProps = (dispatch) => {
     return {
-      loginSuccess: (user) => {
-        dispatch(loginSuccess(user))
-      },
       setOwnedEquipment: (equipments) => {
         dispatch(setOwnedEquipment(equipments))
-      },
-      setEquipmentTypes: (equipmentTypes) => {
-        dispatch(setEquipmentTypes(equipmentTypes))
-      },
-      setEquipmentModels: (equipmentModels) => {
-        dispatch(setEquipmentModels(equipmentModels))
-      },
-      setAllOwnedEquipment: (equipments) => {
-        dispatch(setAllOwnedEquipment(equipments))
       }
     }
   }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WithAuth(OwnerProfile)) 
+export default connect(mapStateToProps, mapDispatchToProps)(OwnerProfile) 

@@ -41,6 +41,7 @@ class LoginWrapper extends Component {
             <Route exact path='/addequipment' component={AddEquipment} />
             <Route exact path='/addevent' component={AddEvent} />
             <Route exact path='/eventshow' component={EventShow} />
+            <Route path='/' component={Dashboard} />
           </Switch>
       </div>
     </BrowserRouter>
