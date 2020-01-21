@@ -8,6 +8,7 @@ import { setEquipmentTypes } from '../actions/index'
 import { setEquipmentModels } from '../actions/index'
 import { setAllOwnedEquipment } from '../actions/index'
 import { setAllEvents } from '../actions/index'
+import { setAllRentals } from '../actions/index'
 
 import Dashboard from './Dashboard'
 import OwnerCreate from './OwnerCreate'
@@ -70,6 +71,9 @@ return {
     },
     setAllEvents: (events) => {
       dispatch(setAllEvents(events))
+    },
+    setAllRentals: (rentals) => {
+      dispatch(setAllRentals(rentals))
     }
   }
 }

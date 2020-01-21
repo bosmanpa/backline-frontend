@@ -1,9 +1,9 @@
-const initialState = []
+const initialState = null
 
 export default function eventShow(state = initialState, action) {
     switch (action.type) {
         case "SHOW_EVENT":
-            return [action.event]
+            return action.event
         default:
             return state
     }

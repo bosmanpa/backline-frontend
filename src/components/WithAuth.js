@@ -44,6 +44,10 @@ export default function WithAuth(WrappedComponent) {
           fetch('http://localhost:3001/events')
           .then(resp => resp.json())
           .then(data => this.props.setAllEvents(data))
+        
+          fetch('http://localhost:3001/equipment_rentals')
+          .then(resp => resp.json())
+          .then(data => this.props.setAllRentals(data))
         }
 
       }

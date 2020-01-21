@@ -104,8 +104,7 @@ const defaultModelOption = document.createElement('option');
       this.setState({searchResults: searchFiltered})
     }
 
-    renderSearchResults = () => {
-      
+    renderSearchResults = () => {      
       return this.state.searchResults.map( equipment => {
         return (
         <Card style={{ width: '22rem'}}>
@@ -114,12 +113,26 @@ const defaultModelOption = document.createElement('option');
         <Card.Title>USER ID:{equipment.owner_id}</Card.Title>
         <Card.Title>{this.state.current_model_name}</Card.Title>
         <Card.Text>{this.state.current_model_description}</Card.Text>
-        <Button variant="primary" onClick={() => this.handleRentClick(equipment.id, this.props.event[0].id)}>Add this Equipment</Button>
+        <Button variant="primary" onClick={() => this.handleRentClick(equipment.id, this.props.event.id)}>Add this Equipment</Button>
         </Card.Body>
         </Card>)
       })
     }
- 
+
+    renderEventInfo = () =>{
+      return(
+        <Card style={{ width: '18rem'}}>
+        <Card.Body>
+            <Card.Title>{this.props.event.name}</Card.Title>
+            <Card.Text>{this.props.event.location}</Card.Text>
+            <Card.Text>{this.props.event.description}</Card.Text>
+        </Card.Body>
+        </Card> 
+      )
+    }
+
+
+
     handleRentClick = (equipment_id, event_id) => {
       const reqObj = {
         method: 'POST',
@@ -144,7 +157,7 @@ const defaultModelOption = document.createElement('option');
         return(
                  <Container>
 <Row>
-  <Col></Col>
+  <Col>{this.renderEventInfo()}</Col>
     <Col>
     <form>
       <select id='equipment_type' onChange={this.handleTypeChange}>
@@ -155,7 +168,6 @@ const defaultModelOption = document.createElement('option');
       </select>
     </form>
     </Col>
-    <Col></Col>
   </Row>
 
 <Row>
@@ -169,28 +181,24 @@ const defaultModelOption = document.createElement('option');
 </Card.Body>
 </Card>
 </Col>
-<Col></Col>
   </Row>
   <Row>
   <Col></Col>
   <Col>
   <Button variant="primary" onClick={this.handleSearch}>Search For This Equipment</Button>
   </Col>
-  <Col></Col>
   </Row>
   <Row>
   <Col></Col>
   <Col>
           {this.renderSearchResults()}
   </Col>
-  <Col></Col>
   </Row>
   <Row>
   <Col></Col>
   <Col>
   <Button variant="primary" onClick={this.handleBackClick}>Back To Profile</Button>
   </Col>
-  <Col></Col>
   </Row>
 </Container>
         )
@@ -200,7 +208,7 @@ const defaultModelOption = document.createElement('option');
       return(
       <Container>
       <Row>
-        <Col></Col>
+        <Col>{this.renderEventInfo()}</Col>
         <Col>
           <form>
             <select id='equipment_type' onChange={this.handleTypeChange}>
@@ -212,7 +220,6 @@ const defaultModelOption = document.createElement('option');
           </form>
           <Button variant="primary" onClick={this.handleBackClick}>Back To Profile</Button>
           </Col>
-          <Col></Col>
           </Row>
         </Container>
     )}
@@ -221,7 +228,7 @@ const defaultModelOption = document.createElement('option');
        <Container>
 
         <Row>
-          <Col></Col>
+        <Col>{this.renderEventInfo()}</Col>
             <Col>
             <form>
               <select id='equipment_type' onChange={this.handleTypeChange}>
@@ -232,7 +239,6 @@ const defaultModelOption = document.createElement('option');
               </select>
             </form>
             </Col>
-            <Col></Col>
           </Row>
 
         <Row>
@@ -246,21 +252,18 @@ const defaultModelOption = document.createElement('option');
         </Card.Body>
         </Card>
         </Col>
-        <Col></Col>
           </Row>
           <Row>
           <Col></Col>
           <Col>
           <Button variant="primary" onClick={this.handleSearch}>Search For This Equipment</Button>
           </Col>
-          <Col></Col>
           </Row>
           <Row>
           <Col></Col>
           <Col>
           <Button variant="primary" onClick={this.handleBackClick}>Back To Profile</Button>
           </Col>
-          <Col></Col>
           </Row>
         </Container>
         )

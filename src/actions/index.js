@@ -81,3 +81,10 @@ export const setAllEvents = (events) => {
     events
   }
 }
+
+export const setAllRentals = (rentals) => {
+  return{
+    type: "SET_ALL_RENTALS",
+    rentals
+  }
+}
