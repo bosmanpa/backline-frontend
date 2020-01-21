@@ -21,6 +21,7 @@ import AddEquipment from './AddEquipment'
 import AddEvent from './AddEvent'
 import EventShow from './EventShow'
 import DashboardRedirect from './DashboardRedirect'
+import NavBar from './NavBar'
 
 class LoginWrapper extends Component {
 
@@ -33,6 +34,7 @@ class LoginWrapper extends Component {
   return (
     <BrowserRouter>
       <div className="App">
+        <NavBar />
           <Switch>
             <Route exact path='/dashboard' component={Dashboard} />
             <Route exact path='/promotercreate' component={PromoterCreate} />
