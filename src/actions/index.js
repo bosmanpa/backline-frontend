@@ -88,3 +88,10 @@ export const setAllRentals = (rentals) => {
     rentals
   }
 }
+
+export const updateAllRentals = (rental) => {
+  return{
+    type: "UPDATE_ALL_RENTALS",
+    rental
+  }
+}

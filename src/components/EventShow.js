@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { updateAllRentals } from '../actions/index'
+
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import CardColumns from 'react-bootstrap/CardColumns'
 
 class EventShow extends Component {
   state = {
@@ -25,6 +28,9 @@ class EventShow extends Component {
   componentDidUpdate(prevState) {
     if (this.props.equipmentTypes !== prevState.equipmentTypes) {
       this.typeDropdown()
+    }
+    if (this.props.allRentals !== prevState.allRentals){
+      this.renderRentedEquipment()
     }
   }
 
@@ -100,11 +106,25 @@ const defaultModelOption = document.createElement('option');
 
     handleSearch = () => {
     
-      const searchFiltered = this.props.allOwnedEquipment.filter(equipment => equipment.model_id === Number.parseInt(this.state.equipment_type))
-      this.setState({searchResults: searchFiltered})
+      const modelFiltered = this.props.allOwnedEquipment.filter(equipment => equipment.model_id === Number.parseInt(this.state.equipment_model))
+      console.log(modelFiltered)
+      const userFiltered = modelFiltered.filter(equipment => equipment.owner_id !== this.props.currentUser.id)
+      console.log(userFiltered)
+      const rentedIds = this.props.event.equipment_rentals.map(rental => rental.equipment_id)
+      console.log(rentedIds)
+      const rentalFiltered = userFiltered.map(equipment =>{
+        if (!rentedIds.includes(equipment.id)){
+          return equipment
+        }else {
+          return null
+        }
+      })
+      const nullRemoved = rentalFiltered.filter(rental => rental !== null)
+      
+      this.setState({searchResults: nullRemoved})
     }
 
-    renderSearchResults = () => {      
+    renderSearchResults = () => {
       return this.state.searchResults.map( equipment => {
         return (
         <Card style={{ width: '22rem'}}>
@@ -117,6 +137,22 @@ const defaultModelOption = document.createElement('option');
         </Card.Body>
         </Card>)
       })
+    }
+
+    renderRentedEquipment = () => {
+      const eventRentals = this.props.allRentals.filter(rental => rental.event.id === this.props.event.id)
+      return eventRentals.map(rental => {
+        const currentModel = this.props.equipmentModels.filter(model => model.id === rental.owned_equipment.model_id)[0]
+        return (
+        <Card style={{ width: '22rem'}}>
+        <Card.Body>
+            <Card.Img variant="top" src={currentModel.image}/>
+            <Card.Title>{currentModel.name}</Card.Title>
+            <Card.Text>{currentModel.description}</Card.Text>
+        </Card.Body>
+        </Card>
+        )       
+      })     
     }
 
     renderEventInfo = () =>{
@@ -141,14 +177,17 @@ const defaultModelOption = document.createElement('option');
         },
         body: JSON.stringify({
           event_id: event_id,
-          equipment_id: equipment_id
+          equipment_id: equipment_id,
+          model_id: this.state.equipment_model
         })
       }
 
       fetch('http://localhost:3001/equipment_rentals', reqObj)
       .then(resp => resp.json())
       .then(data => {
-        console.log(data)
+        this.props.updateAllRentals(data)
+        const newSearchResults = this.state.searchResults.filter(equipment => equipment_id !== equipment.id )
+        this.setState({searchResults: newSearchResults})
       })
     }
 
@@ -157,7 +196,10 @@ const defaultModelOption = document.createElement('option');
         return(
                  <Container>
 <Row>
-  <Col>{this.renderEventInfo()}</Col>
+  <Col>
+  {this.renderEventInfo()}
+  <CardColumns> {this.renderRentedEquipment()}</CardColumns>
+  </Col>
     <Col>
     <form>
       <select id='equipment_type' onChange={this.handleTypeChange}>
@@ -208,7 +250,10 @@ const defaultModelOption = document.createElement('option');
       return(
       <Container>
       <Row>
-        <Col>{this.renderEventInfo()}</Col>
+      <Col>
+  {this.renderEventInfo()}
+  <CardColumns> {this.renderRentedEquipment()}</CardColumns>
+  </Col>
         <Col>
           <form>
             <select id='equipment_type' onChange={this.handleTypeChange}>
@@ -228,7 +273,10 @@ const defaultModelOption = document.createElement('option');
        <Container>
 
         <Row>
-        <Col>{this.renderEventInfo()}</Col>
+        <Col>
+  {this.renderEventInfo()}
+  <CardColumns> {this.renderRentedEquipment()}</CardColumns>
+  </Col>
             <Col>
             <form>
               <select id='equipment_type' onChange={this.handleTypeChange}>
@@ -283,9 +331,18 @@ const mapStateToProps = (state) => {
       allOwnedEquipment: state.allOwnedEquipment,
       currentUser: state.currentUser,
       equipmentTypes: state.equipmentTypes,
-      equipmentModels: state.equipmentModels
+      equipmentModels: state.equipmentModels,
+      allRentals: state.allRentals
     }
   }
 
+const mapDispatchToProps = (dispatch) => {
+  return{
+    updateAllRentals : (rental) => {
+      dispatch(updateAllRentals(rental))
+    }
+  }
+}
 
-export default connect(mapStateToProps, null)(EventShow) 
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventShow) 
