@@ -21,9 +21,8 @@ class EventCard extends Component {
         <Card onClick={() => this.handleClick(this.props.event)} style={{ width: '12rem'}}>
         <Card.Body>
             <Card.Title>{this.props.event.name}</Card.Title>
+            <Card.Text>{new Date(this.props.event.start_date).toDateString()} - {new Date(this.props.event.end_date).toDateString()}</Card.Text>
             <Card.Text>{this.props.event.location}</Card.Text>
-            <Card.Text>{this.props.event.description}</Card.Text>
-            {new Date(this.props.event.start_date).toDateString()} - {new Date(this.props.event.end_date).toDateString()}
         </Card.Body>
         </Card>
         )

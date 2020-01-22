@@ -175,6 +175,7 @@ const defaultModelOption = document.createElement('option');
         <Card style={{ height: '22rem'}}>
         <Card.Body>
             <Card.Title>{this.props.event.name}</Card.Title>
+            <Card.Text>{new Date(this.props.event.start_date).toDateString()} - {new Date(this.props.event.end_date).toDateString()}</Card.Text>
             <Card.Text>{this.props.event.location}</Card.Text>
             <Card.Text>{this.props.event.description}</Card.Text>
         </Card.Body>
@@ -254,6 +255,10 @@ const defaultModelOption = document.createElement('option');
               </Col>
             </Row>
             <Row>
+              <Col><h2>Rented Equipment</h2></Col>
+              <Col></Col>
+            </Row>
+            <Row>
               <Col style={{width: '50%'}}>
                 <CardColumns className="rented-equipment-col"> {this.renderRentedEquipment()}</CardColumns>
               </Col>
@@ -285,7 +290,7 @@ const defaultModelOption = document.createElement('option');
               </form>
               </Col>
               <Col>
-              <Card style={{ height: '20rem', width: '12rem'}}>
+              <Card style={{ height: '18rem', width: '12rem'}}>
                 <Card.Body>
                   <Card.Img variant="top" src={this.state.current_model_image}/>
                   <Card.Title>{this.state.current_model_name}</Card.Title>
@@ -294,6 +299,10 @@ const defaultModelOption = document.createElement('option');
               </Card>
               <Button variant="primary" onClick={this.handleSearch}>Search For This Equipment</Button>
               </Col>
+          </Row>
+          <Row>
+              <Col><h2>Rented Equipment</h2></Col>
+              <Col><h2>Search Results</h2></Col>
           </Row>
           <Row>
               <CardColumns style={{width: '50%'}} className="rented-equipment-col" > {this.renderRentedEquipment()}</CardColumns>
@@ -325,7 +334,7 @@ const defaultModelOption = document.createElement('option');
               </form>
               </Col>
               <Col>
-              <Card style={{ height: '20rem', width: '12rem' }}>
+              <Card style={{ height: '18rem', width: '12rem' }}>
                 <Card.Body>
                     <Card.Img variant="top" src={this.state.current_model_image}/>
                     <Card.Title>{this.state.current_model_name}</Card.Title>
@@ -335,6 +344,10 @@ const defaultModelOption = document.createElement('option');
               <Button variant="primary" onClick={this.handleSearch}>Search For This Equipment</Button>
             </Col>
           </Row>
+          <Row>
+              <Col><h2>Rented Equipment</h2></Col>
+              <Col></Col>
+            </Row>
           <Row>
               <CardColumns style={{width: '50%'}} className="rented-equipment-col"> {this.renderRentedEquipment()}</CardColumns>
             <Col>
