@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_01_07_223857) do
   create_table "equipment_rentals", force: :cascade do |t|
     t.integer "event_id"
     t.integer "equipment_id"
+    t.integer "model_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -53,7 +54,6 @@ ActiveRecord::Schema.define(version: 2020_01_07_223857) do
     t.integer "owner_id"
     t.integer "type_id"
     t.integer "model_id"
-    t.string "description"
     t.integer "price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
