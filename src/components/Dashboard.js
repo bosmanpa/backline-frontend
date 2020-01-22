@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Image from 'react-bootstrap/Image'
 
 class Dashboard extends Component {
 
@@ -18,9 +19,11 @@ class Dashboard extends Component {
     <Container>
       <Row>
         <Col>
+        <Image src="https://www.pngitem.com/pimgs/m/508-5087356_vector-cats-profile-circle-hd-png-download.png" roundedCircle fluid/>
         <Button variant="primary" id='/promoterprofile' onClick={this.handleButtonClick}>View Promoter Profile</Button>
         </Col>
         <Col>
+        <Image src="https://www.pngitem.com/pimgs/m/508-5087356_vector-cats-profile-circle-hd-png-download.png" roundedCircle fluid/>
         <Button variant="primary" id='/ownerprofile' onClick={this.handleButtonClick}>View Owner Profile</Button>
         </Col>
       </Row>
@@ -31,6 +34,7 @@ class Dashboard extends Component {
         <Container>
           <Row>
             <Col>
+            <Image src="https://www.pngitem.com/pimgs/m/508-5087356_vector-cats-profile-circle-hd-png-download.png" roundedCircle fluid/>
             <Button variant="primary" id='/promoterprofile' onClick={this.handleButtonClick}>View Promoter Profile</Button>
             </Col>
             <Col>
@@ -48,6 +52,7 @@ class Dashboard extends Component {
             <Button variant="primary" id='/promotercreate' onClick={this.handleButtonClick}>Create Promoter Profile</Button>
             </Col>
             <Col>
+            <Image src="https://www.pngitem.com/pimgs/m/508-5087356_vector-cats-profile-circle-hd-png-download.png" roundedCircle fluid/>
             <Button variant="primary" id='/ownerprofile' onClick={this.handleButtonClick}>View Owner Profile</Button>
             </Col>
           </Row>

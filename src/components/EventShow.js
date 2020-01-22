@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
 
 import { updateAllRentals } from '../actions/index'
 
@@ -140,11 +141,12 @@ const defaultModelOption = document.createElement('option');
     }
 
     renderRentedEquipment = () => {
+      if (this.props.event){
       const eventRentals = this.props.allRentals.filter(rental => rental.event.id === this.props.event.id)
       return eventRentals.map(rental => {
         const currentModel = this.props.equipmentModels.filter(model => model.id === rental.owned_equipment.model_id)[0]
         return (
-        <Card style={{ width: '22rem'}}>
+        <Card style={{ height: '18rem'}}>
         <Card.Body>
             <Card.Img variant="top" src={currentModel.image}/>
             <Card.Title>{currentModel.name}</Card.Title>
@@ -152,7 +154,10 @@ const defaultModelOption = document.createElement('option');
         </Card.Body>
         </Card>
         )       
-      })     
+      })
+    } else {
+      return null
+    }    
     }
 
     renderEventInfo = () =>{
@@ -192,13 +197,35 @@ const defaultModelOption = document.createElement('option');
     }
 
     render(){
-      if (this.state.equipment_model !== null && this.props.event.length !==0 && this.state.searchResults.length !== 0){
+     if (!this.props.event){
+       return(
+         <div>
+                        <Container>
+      <Row>
+        <Col>
+          <form>
+            <select id='equipment_type' onChange={this.handleTypeChange}>
+            </select>
+          </form>
+          <form>
+            <select id='equipment_model' onChange={this.handleChange}>
+            </select>
+          </form>
+          </Col>
+          </Row>
+        </Container>
+                <Redirect to="/promoterprofile"/>
+                </div>
+       )
+     }
+     
+     else if (this.state.equipment_model !== null && this.props.event.length !==0 && this.state.searchResults.length !== 0){
         return(
                  <Container>
 <Row>
   <Col>
   {this.renderEventInfo()}
-  <CardColumns> {this.renderRentedEquipment()}</CardColumns>
+  <CardColumns className="rented-equipment-col" > {this.renderRentedEquipment()}</CardColumns>
   </Col>
     <Col>
     <form>
@@ -246,13 +273,13 @@ const defaultModelOption = document.createElement('option');
         )
       }  
 
-      if (this.state.equipment_model === null && this.props.event.length !==0){
+      else if (this.state.equipment_model === null && this.props.event.length !==0){
       return(
       <Container>
       <Row>
       <Col>
   {this.renderEventInfo()}
-  <CardColumns> {this.renderRentedEquipment()}</CardColumns>
+  <CardColumns className="rented-equipment-col"> {this.renderRentedEquipment()}</CardColumns>
   </Col>
         <Col>
           <form>
@@ -275,7 +302,7 @@ const defaultModelOption = document.createElement('option');
         <Row>
         <Col>
   {this.renderEventInfo()}
-  <CardColumns> {this.renderRentedEquipment()}</CardColumns>
+  <CardColumns className="rented-equipment-col"> {this.renderRentedEquipment()}</CardColumns>
   </Col>
             <Col>
             <form>
@@ -317,7 +344,7 @@ const defaultModelOption = document.createElement('option');
         )
     } else {
       return(
-          null
+        null
       )
   }
 }

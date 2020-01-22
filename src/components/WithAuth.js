@@ -39,15 +39,30 @@ export default function WithAuth(WrappedComponent) {
 
           fetch('http://localhost:3001/owned_equipments')
           .then(resp => resp.json())
-          .then(data => {this.props.setAllOwnedEquipment(data)})
+          .then(data => {          
+            data.sort(function(a,b){
+              return a.model_id - b.model_id
+          })
+            this.props.setAllOwnedEquipment(data)
+          })
   
           fetch('http://localhost:3001/events')
           .then(resp => resp.json())
-          .then(data => this.props.setAllEvents(data))
+          .then(data => {
+            data.sort(function(a,b){
+              return new Date(a.start_date) - new Date(b.start_date)
+            })
+            this.props.setAllEvents(data)
+          })
         
           fetch('http://localhost:3001/equipment_rentals')
           .then(resp => resp.json())
-          .then(data => this.props.setAllRentals(data))
+          .then(data => {
+            data.sort(function(a,b){
+              return new Date(a.event.start_date) - new Date(b.event.start_date)
+            })
+            this.props.setAllRentals(data)
+          })
         }
 
       }

@@ -7,6 +7,8 @@ import equipmentModels from './equipmentModels'
 import eventShow from './eventShow'
 import allOwnedEquipment from './allOwnedEquipment'
 import allRentals from './allRentals'
+import allEvents from './allEvents'
+
 
 export default combineReducers({
   currentUser,
@@ -16,5 +18,6 @@ export default combineReducers({
   equipmentModels,
   eventShow,
   allOwnedEquipment,
-  allRentals
+  allRentals,
+  allEvents
 })

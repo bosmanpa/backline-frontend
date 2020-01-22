@@ -8,11 +8,11 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
-import CardGroup from 'react-bootstrap/CardGroup'
+import CardColumns from 'react-bootstrap/CardColumns'
 
 class OwnerProfile extends Component{
   state={
-    owned_equipments: []
+    owned_equipments: [],
   }
   componentDidMount(){
     fetch('http://localhost:3001/owned_equipments')
@@ -29,7 +29,9 @@ class OwnerProfile extends Component{
     if (this.props.currentUser.owner_name !== prevState.currentUser.owner_name) {
       const owned_equipment = this.state.owned_equipments.filter(equipment => equipment.owner_id === this.props.currentUser.id)
       this.props.setOwnedEquipment(owned_equipment)
-      }
+  
+        
+    }
   }
 
 
@@ -45,35 +47,51 @@ class OwnerProfile extends Component{
       })}
     }
 
+    renderRentals = () => {
+      if (this.props.allRentals.length !== 0){
+      const userRentals = this.props.allRentals.filter(rental => rental.owned_equipment.owner_id === this.props.currentUser.id )
+      return userRentals.map(rental =>{
+          const modelRented = this.props.equipmentModels.filter(model => rental.owned_equipment.id === model.id)
+          return (
+            <li><b>{modelRented[0].name}</b> @ <u>{rental.event.name}</u>: <b>{new Date(rental.event.start_date).toDateString()} - {new Date(rental.event.end_date).toDateString()}</b></li>
+          )
+        })
+
+    }
+    }
+
     render(){
     
         return(
           <Container>
             <Row>
-              <Col></Col>
-              <Col>
-              <Button variant="primary" id='/dashboard' onClick={this.handleButtonClick}>Back to Dashboard</Button>
-              </Col>
-              <Col></Col>
-            </Row>
-            <Row>
               <Col>
                 <h2>Owner Profile</h2>
-                <Card style={{ width: '28rem'}}>
+                <Button variant="primary" id='/ownerupdate' onClick={this.handleButtonClick}>Update Owner Profile</Button>
+                <Card className="profile-card">
                   <Card.Body>
                     <Card.Title>{this.props.currentUser.owner_name}</Card.Title>
                     <Card.Text>{this.props.currentUser.owner_location}</Card.Text>
                     <Card.Text>{this.props.currentUser.owner_info}</Card.Text>
                   </Card.Body>
                 </Card>
-                <Button variant="primary" id='/ownerupdate' onClick={this.handleButtonClick}>Update Owner Profile</Button>
+                <h2>Your Rentals</h2>
+                <Card className="rentals-card">
+                  <Card.Body>
+                    <Card.Text>
+                      <ul>
+                        {this.renderRentals()}
+                      </ul>
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
               </Col>
               <Col>
                 <h2>Your Owned Equipment</h2>
                 <Button variant="primary" id='/addequipment' onClick={this.handleButtonClick}>Add Equipment</Button>
-                <CardGroup>
+                <CardColumns>
                 {this.renderOwnedEquipments()}
-                </CardGroup>
+                </CardColumns>
               </Col>
             </Row>
           </Container>
@@ -87,7 +105,8 @@ const mapStateToProps = (state) => {
       ownedEquipment: state.ownedEquipment,
       equipmentModels: state.equipmentModels, 
       equipmentTypes: state.equipmentTypes,
-      allOwnedEquipment: state.allOwnedEquipment
+      allOwnedEquipment: state.allOwnedEquipment,
+      allRentals: state.allRentals   
     }
   }
   

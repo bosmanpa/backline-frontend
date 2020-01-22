@@ -19,23 +19,21 @@ class OwnedEquipment extends Component {
     renderCard = () => {
         if (this.state.model !== null){
             return (        
-            <Card bg="light" border="primary" style={{ width: '18rem'}}>
             <Card.Body>
                 <Card.Img variant="top" src={this.state.model.image}/>
                 <Card.Title>{this.state.model.name}</Card.Title>
                 <Card.Text>{this.state.type}</Card.Text>
                 <Card.Text>{this.state.model.description}</Card.Text>
                 
-            </Card.Body>
-            </Card>)
+            </Card.Body>)
         }
     }
 
     render () {
-    return(
-        <div>
+    return(            
+    <Card border="primary" style={{ height: '20rem', width: '12rem'}}>
             {this.renderCard()}
-        </div>
+    </Card>
         )
     }
 }
