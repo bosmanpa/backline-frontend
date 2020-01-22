@@ -19,7 +19,8 @@ class EventShow extends Component {
     current_model_name: '',
     current_model_description: '',
     current_model_image: '',
-    searchResults: []
+    searchResults: [],
+    searchRan: false
   }
 
   componentDidMount(){
@@ -64,6 +65,7 @@ const defaultModelOption = document.createElement('option');
       this.setState({
         [e.target.id]: e.target.value
       })
+      this.setState({searchRan: false})
       this.fetchModels()
     }
 
@@ -72,6 +74,7 @@ const defaultModelOption = document.createElement('option');
         [e.target.id]: e.target.value
       })
       const currentModel = this.state.filtered_models.filter(model => parseInt(e.target.value) === model.id)
+      this.setState({searchRan: false})
       this.renderModelInfo(currentModel[0])
     }
 
@@ -108,11 +111,8 @@ const defaultModelOption = document.createElement('option');
     handleSearch = () => {
     
       const modelFiltered = this.props.allOwnedEquipment.filter(equipment => equipment.model_id === Number.parseInt(this.state.equipment_model))
-      console.log(modelFiltered)
       const userFiltered = modelFiltered.filter(equipment => equipment.owner_id !== this.props.currentUser.id)
-      console.log(userFiltered)
       const rentedIds = this.props.event.equipment_rentals.map(rental => rental.equipment_id)
-      console.log(rentedIds)
       const rentalFiltered = userFiltered.map(equipment =>{
         if (!rentedIds.includes(equipment.id)){
           return equipment
@@ -122,22 +122,32 @@ const defaultModelOption = document.createElement('option');
       })
       const nullRemoved = rentalFiltered.filter(rental => rental !== null)
       
-      this.setState({searchResults: nullRemoved})
+      this.setState({searchResults: nullRemoved, searchRan: true})
     }
 
     renderSearchResults = () => {
+      if(this.state.searchRan === true && this.state.searchResults.length === 0){
+        return (
+          <Card>
+          <Card.Body>
+          <Card.Title>Sorry, no equipment available.</Card.Title>
+          </Card.Body>
+          </Card>)
+      }
+      else if(this.state.searchRan === true && this.state.searchResults.length !== 0){
       return this.state.searchResults.map( equipment => {
         return (
-        <Card style={{ width: '22rem'}}>
+        <Card className="search-result" style={{height: '22rem', width: '10rem'}}>
         <Card.Body>
         <Card.Img variant="top" src={this.state.current_model_image}/>
         <Card.Title>USER ID:{equipment.owner_id}</Card.Title>
         <Card.Title>{this.state.current_model_name}</Card.Title>
         <Card.Text>{this.state.current_model_description}</Card.Text>
-        <Button variant="primary" onClick={() => this.handleRentClick(equipment.id, this.props.event.id)}>Add this Equipment</Button>
+        <Button variant="primary" onClick={() => this.handleRentClick(equipment.id, this.props.event.id)}>Rent</Button>
         </Card.Body>
         </Card>)
       })
+      }
     }
 
     renderRentedEquipment = () => {
@@ -146,7 +156,7 @@ const defaultModelOption = document.createElement('option');
       return eventRentals.map(rental => {
         const currentModel = this.props.equipmentModels.filter(model => model.id === rental.owned_equipment.model_id)[0]
         return (
-        <Card style={{ height: '18rem'}}>
+        <Card style={{ height: '22rem', width: '10rem'}}>
         <Card.Body>
             <Card.Img variant="top" src={currentModel.image}/>
             <Card.Title>{currentModel.name}</Card.Title>
@@ -162,7 +172,7 @@ const defaultModelOption = document.createElement('option');
 
     renderEventInfo = () =>{
       return(
-        <Card style={{ width: '18rem'}}>
+        <Card style={{ height: '22rem'}}>
         <Card.Body>
             <Card.Title>{this.props.event.name}</Card.Title>
             <Card.Text>{this.props.event.location}</Card.Text>
@@ -199,146 +209,136 @@ const defaultModelOption = document.createElement('option');
     render(){
      if (!this.props.event){
        return(
-         <div>
-                        <Container>
-      <Row>
-        <Col>
-          <form>
-            <select id='equipment_type' onChange={this.handleTypeChange}>
-            </select>
-          </form>
-          <form>
-            <select id='equipment_model' onChange={this.handleChange}>
-            </select>
-          </form>
-          </Col>
-          </Row>
-        </Container>
-                <Redirect to="/promoterprofile"/>
-                </div>
+        <div>
+          <Container>
+            <Row>
+              <Col>
+                <form>
+                  <select id='equipment_type' onChange={this.handleTypeChange}>
+                  </select>
+                </form>
+                <form>
+                  <select id='equipment_model' onChange={this.handleChange}>
+                  </select>
+                </form>
+              </Col>
+            </Row>
+          </Container>
+            <Redirect to="/promoterprofile"/>
+        </div>
        )
      }
-     
-     else if (this.state.equipment_model !== null && this.props.event.length !==0 && this.state.searchResults.length !== 0){
-        return(
-                 <Container>
-<Row>
-  <Col>
-  {this.renderEventInfo()}
-  <CardColumns className="rented-equipment-col" > {this.renderRentedEquipment()}</CardColumns>
-  </Col>
-    <Col>
-    <form>
-      <select id='equipment_type' onChange={this.handleTypeChange}>
-      </select>
-    </form>
-    <form>
-      <select id='equipment_model' onChange={this.handleChange}>
-      </select>
-    </form>
-    </Col>
-  </Row>
-
-<Row>
-  <Col></Col>
-  <Col>
-<Card style={{ width: '22rem'}}>
-<Card.Body>
-    <Card.Img variant="top" src={this.state.current_model_image}/>
-    <Card.Title>{this.state.current_model_name}</Card.Title>
-    <Card.Text>{this.state.current_model_description}</Card.Text>
-</Card.Body>
-</Card>
-</Col>
-  </Row>
-  <Row>
-  <Col></Col>
-  <Col>
-  <Button variant="primary" onClick={this.handleSearch}>Search For This Equipment</Button>
-  </Col>
-  </Row>
-  <Row>
-  <Col></Col>
-  <Col>
-          {this.renderSearchResults()}
-  </Col>
-  </Row>
-  <Row>
-  <Col></Col>
-  <Col>
-  <Button variant="primary" onClick={this.handleBackClick}>Back To Profile</Button>
-  </Col>
-  </Row>
-</Container>
-        )
-      }  
-
-      else if (this.state.equipment_model === null && this.props.event.length !==0){
+     else if (this.state.equipment_model === null && this.props.event.length !==0){
       return(
-      <Container>
-      <Row>
-      <Col>
-  {this.renderEventInfo()}
-  <CardColumns className="rented-equipment-col"> {this.renderRentedEquipment()}</CardColumns>
-  </Col>
-        <Col>
-          <form>
-            <select id='equipment_type' onChange={this.handleTypeChange}>
-            </select>
-          </form>
-          <form>
-            <select id='equipment_model' onChange={this.handleChange}>
-            </select>
-          </form>
-          <Button variant="primary" onClick={this.handleBackClick}>Back To Profile</Button>
-          </Col>
+        <Container>
+          <Row>
+          <Col><h2>Event Info</h2></Col>
+            <Col><h2>Search</h2></Col>
+            <Col></Col>
+          </Row>
+          <Row>
+            <Col>
+              {this.renderEventInfo()}
+            </Col>
+            <Col>
+                <form>
+                <select id='equipment_type' onChange={this.handleTypeChange}>
+                </select>
+              </form>
+              <form>
+                <select id='equipment_model' onChange={this.handleChange}>
+                </select>
+              </form>
+              </Col>
+              <Col>
+              </Col>
+            </Row>
+            <Row>
+              <Col style={{width: '50%'}}>
+                <CardColumns className="rented-equipment-col"> {this.renderRentedEquipment()}</CardColumns>
+              </Col>
+              <Col>
+              </Col>
+            </Row>
+        </Container>
+    )} 
+    else if (this.state.equipment_model !== null && this.props.event.length !==0 && this.state.searchResults.length !== 0){
+      return(
+        <Container>
+        <Row>
+            <Col><h2>Event Info</h2></Col>
+            <Col><h2>Search</h2></Col>
+            <Col></Col>
+          </Row>
+          <Row>
+            <Col>
+              {this.renderEventInfo()}
+            </Col>
+            <Col>
+              <form>
+                <select id='equipment_type' onChange={this.handleTypeChange}>
+                </select>
+              </form>
+              <form>
+                <select id='equipment_model' onChange={this.handleChange}>
+                </select>
+              </form>
+              </Col>
+              <Col>
+              <Card style={{ height: '20rem', width: '12rem'}}>
+                <Card.Body>
+                  <Card.Img variant="top" src={this.state.current_model_image}/>
+                  <Card.Title>{this.state.current_model_name}</Card.Title>
+                  <Card.Text>{this.state.current_model_description}</Card.Text>
+                </Card.Body>
+              </Card>
+              <Button variant="primary" onClick={this.handleSearch}>Search For This Equipment</Button>
+              </Col>
+          </Row>
+          <Row>
+              <CardColumns style={{width: '50%'}} className="rented-equipment-col" > {this.renderRentedEquipment()}</CardColumns>
+              <CardColumns style={{width: '50%'}} className="rented-equipment-col"> {this.renderSearchResults()}</CardColumns>
           </Row>
         </Container>
-    )}
+      )
+    }  
     else if(this.props.event.length !==0 && this.state.equipment_model !== null) {
       return(         
-       <Container>
-
+        <Container>
         <Row>
-        <Col>
-  {this.renderEventInfo()}
-  <CardColumns className="rented-equipment-col"> {this.renderRentedEquipment()}</CardColumns>
-  </Col>
+        <Col><h2>Event Info</h2></Col>
+            <Col><h2>Search</h2></Col>
+            <Col></Col>
+          </Row>
+          <Row>
             <Col>
-            <form>
-              <select id='equipment_type' onChange={this.handleTypeChange}>
-              </select>
-            </form>
-            <form>
-              <select id='equipment_model' onChange={this.handleChange}>
-              </select>
-            </form>
+              {this.renderEventInfo()}
+            </Col>
+            <Col>
+              <form>
+                <select id='equipment_type' onChange={this.handleTypeChange}>
+                </select>
+              </form>
+              <form>
+                <select id='equipment_model' onChange={this.handleChange}>
+                </select>
+              </form>
+              </Col>
+              <Col>
+              <Card style={{ height: '20rem', width: '12rem' }}>
+                <Card.Body>
+                    <Card.Img variant="top" src={this.state.current_model_image}/>
+                    <Card.Title>{this.state.current_model_name}</Card.Title>
+                    <Card.Text>{this.state.current_model_description}</Card.Text>
+                </Card.Body>
+              </Card>
+              <Button variant="primary" onClick={this.handleSearch}>Search For This Equipment</Button>
             </Col>
           </Row>
-
-        <Row>
-          <Col></Col>
-          <Col>
-        <Card style={{ width: '22rem'}}>
-        <Card.Body>
-            <Card.Img variant="top" src={this.state.current_model_image}/>
-            <Card.Title>{this.state.current_model_name}</Card.Title>
-            <Card.Text>{this.state.current_model_description}</Card.Text>
-        </Card.Body>
-        </Card>
-        </Col>
-          </Row>
           <Row>
-          <Col></Col>
-          <Col>
-          <Button variant="primary" onClick={this.handleSearch}>Search For This Equipment</Button>
-          </Col>
-          </Row>
-          <Row>
-          <Col></Col>
-          <Col>
-          <Button variant="primary" onClick={this.handleBackClick}>Back To Profile</Button>
-          </Col>
+              <CardColumns style={{width: '50%'}} className="rented-equipment-col"> {this.renderRentedEquipment()}</CardColumns>
+            <Col>
+            </Col>
           </Row>
         </Container>
         )

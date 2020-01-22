@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-class NavBar extends Component{
+class LoggedOutNavBar extends Component{
     loginClick = () => {
         this.props.history.push("/login")
     }
@@ -28,4 +28,4 @@ class NavBar extends Component{
 }
   };
   
-  export default withRouter(connect(null, null)(NavBar));
+  export default withRouter(connect(null, null)(LoggedOutNavBar));

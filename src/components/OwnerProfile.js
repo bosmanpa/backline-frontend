@@ -53,7 +53,7 @@ class OwnerProfile extends Component{
       return userRentals.map(rental =>{
           const modelRented = this.props.equipmentModels.filter(model => rental.owned_equipment.id === model.id)
           return (
-            <li><b>{modelRented[0].name}</b> @ <u>{rental.event.name}</u>: <b>{new Date(rental.event.start_date).toDateString()} - {new Date(rental.event.end_date).toDateString()}</b></li>
+            <li>{modelRented[0].name} @ <u>{rental.event.name}</u>:<br></br><b>{new Date(rental.event.start_date).toDateString()} - {new Date(rental.event.end_date).toDateString()}</b></li>
           )
         })
 
@@ -78,11 +78,9 @@ class OwnerProfile extends Component{
                 <h2>Your Rentals</h2>
                 <Card className="rentals-card">
                   <Card.Body>
-                    <Card.Text>
                       <ul>
                         {this.renderRentals()}
                       </ul>
-                    </Card.Text>
                   </Card.Body>
                 </Card>
               </Col>

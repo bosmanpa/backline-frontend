@@ -9,7 +9,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
-import CardGroup from 'react-bootstrap/CardGroup'
+import CardColumns from 'react-bootstrap/CardColumns'
 
 
 class PromoterProfile extends Component{
@@ -51,30 +51,23 @@ class PromoterProfile extends Component{
 
             <Container>
             <Row>
-              <Col></Col>
-              <Col>
-              <Button variant="primary" id='/dashboard' onClick={this.handleButtonClick}>Back to Dashboard</Button>
-              </Col>
-              <Col></Col>
-            </Row>
-            <Row>
               <Col>
                 <h2>Promoter Profile</h2>
-                <Card style={{ width: '28rem'}}>
+                <Button variant="primary" id='/promoterupdate' onClick={this.handleButtonClick}>Update Promoter Profile</Button>
+                <Card>
                   <Card.Body>
                     <Card.Title>{this.props.currentUser.renter_name}</Card.Title>
                     <Card.Text>{this.props.currentUser.renter_location}</Card.Text>
                     <Card.Text>{this.props.currentUser.renter_info}</Card.Text>
                   </Card.Body>
                 </Card>
-                <Button variant="primary" id='/promoterupdate' onClick={this.handleButtonClick}>Update Promoter Profile</Button>
               </Col>
               <Col>
                 <h2>Your Events</h2>
                 <Button variant="primary" id='/addevent' onClick={this.handleButtonClick}>Add Event</Button>
-                <CardGroup>
+                <CardColumns>
                 {this.renderEvents()}
-                </CardGroup>
+                </CardColumns>
               </Col>
             </Row>
           </Container>
