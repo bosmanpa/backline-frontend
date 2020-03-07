@@ -15,7 +15,7 @@ class LoggedOutNavBar extends Component{
 
     render(){
     if (localStorage.token === "") {return (
-        <Navbar bg="light" variant="light">
+        <Navbar bg="light" variant="light" fixed="top">
             <Navbar.Brand>Backline</Navbar.Brand>
             <Navbar.Collapse className="justify-content-end">
             <Nav.Link onClick={this.signupClick}>Sign Up</Nav.Link>

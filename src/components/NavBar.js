@@ -17,7 +17,7 @@ class NavBar extends Component{
 
     render(){
     return (
-        <Navbar bg="light" variant="light">
+        <Navbar bg="light" variant="light" fixed="top">
             <Navbar.Brand>Backline</Navbar.Brand>
             <Nav className="mr-auto">
             <Nav.Link onClick={this.homeClick}>Home</Nav.Link>

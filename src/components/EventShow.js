@@ -161,6 +161,7 @@ const defaultModelOption = document.createElement('option');
             <Card.Img variant="top" src={currentModel.image}/>
             <Card.Title>{currentModel.name}</Card.Title>
             <Card.Text>{currentModel.description}</Card.Text>
+            <Button variant="primary" onClick={() => this.deleteRental(rental.id)}>Remove</Button>
         </Card.Body>
         </Card>
         )       
@@ -205,6 +206,13 @@ const defaultModelOption = document.createElement('option');
         const newSearchResults = this.state.searchResults.filter(equipment => equipment_id !== equipment.id )
         this.setState({searchResults: newSearchResults})
       })
+    }
+
+    deleteRental = (rentalId) => {
+      // fetch(`http://localhost:3001/owned_equipments/${rentalId}`, { method: 'DELETE'})
+      // .then(resp => resp.json())
+      // .then(data => console.log(data))
+      // .catch(error => console.log(error))    
     }
 
     render(){
