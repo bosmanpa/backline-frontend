@@ -17,7 +17,7 @@ class OwnedEquipment extends Component {
     }
 
     deleteOwnedEquipment = () => {
-        fetch(`http://localhost:3001/owned_equipments/${this.props.equipment.id}`, { method: 'DELETE'})
+        fetch(`http://localhost:3001/owned_equipments/${this.props.equipment.id}`, { method: 'DELETE'})``
         .then(resp => resp.json())
         .then(data => console.log(data))
         .catch(error => console.log(error))
